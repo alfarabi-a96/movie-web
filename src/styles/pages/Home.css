@@ -1,0 +1,118 @@
+.home-page {
+  padding-bottom: var(--spacing-3xl);
+}
+
+.home-hero {
+  background: linear-gradient(
+    135deg,
+    var(--color-primary) 0%,
+    var(--color-primary-dark) 100%
+  );
+  padding: var(--spacing-3xl) var(--spacing-md);
+  text-align: center;
+  color: white;
+  margin-bottom: var(--spacing-3xl);
+}
+
+.home-hero__content {
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+.home-hero__title {
+  font-size: var(--font-size-4xl);
+  margin: 0 0 var(--spacing-md) 0;
+  font-weight: 700;
+}
+
+.home-hero__subtitle {
+  font-size: var(--font-size-xl);
+  margin: 0;
+  opacity: 0.9;
+}
+
+.movie-section {
+  margin-bottom: var(--spacing-3xl);
+}
+
+.movie-section__title {
+  font-size: var(--font-size-2xl);
+  margin: 0 0 var(--spacing-xl) 0;
+  color: var(--text-primary);
+  font-weight: 700;
+}
+
+.movie-section__empty {
+  text-align: center;
+  padding: var(--spacing-2xl);
+  color: var(--text-secondary);
+  font-size: var(--font-size-base);
+}
+
+.movie-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: var(--spacing-lg);
+  animation: fadeIn 0.5s ease-in;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .movie-grid {
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: var(--spacing-md);
+  }
+
+  .home-hero__title {
+    font-size: var(--font-size-3xl);
+  }
+}
+
+@media (max-width: 768px) {
+  .movie-grid {
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: var(--spacing-md);
+  }
+
+  .home-hero {
+    padding: var(--spacing-2xl) var(--spacing-md);
+  }
+
+  .home-hero__title {
+    font-size: var(--font-size-2xl);
+  }
+
+  .home-hero__subtitle {
+    font-size: var(--font-size-base);
+  }
+
+  .movie-section__title {
+    font-size: var(--font-size-xl);
+  }
+}
+
+@media (max-width: 480px) {
+  .movie-grid {
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: var(--spacing-sm);
+  }
+
+  .home-page {
+    padding-bottom: var(--spacing-xl);
+  }
+
+  .movie-section {
+    margin-bottom: var(--spacing-2xl);
+  }
+}
