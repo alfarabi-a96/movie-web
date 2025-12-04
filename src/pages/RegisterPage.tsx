@@ -5,7 +5,7 @@ import { useAuth } from '../context/AuthContext';
 import { useForm } from '../hooks/useInput';
 import { Input } from '../components/Input';
 import { Button } from '../components/Button';
-import '../styles/pages/Auth.css';
+import '../pages/LoginPage/index.css';
 
 export const RegisterPage: React.FC = () => {
   const { t } = useTranslation();

@@ -1,6 +1,6 @@
 .header {
   background-color: var(--bg-secondary);
-  border-bottom: 1px solid var(--border-color);
+  border-bottom: 1px solid var(--border-light);
   position: sticky;
   top: 0;
   z-index: 100;
@@ -10,11 +10,11 @@
 .header__container {
   max-width: 1280px;
   margin: 0 auto;
-  padding: var(--spacing-md) var(--spacing-lg);
+  padding: var(--spacing-md) 1.5rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: var(--spacing-lg);
+  gap: 1.5rem;
 }
 
 .header__logo {
@@ -24,8 +24,8 @@
   text-decoration: none;
   color: var(--color-primary);
   font-weight: 700;
-  font-size: var(--font-size-xl);
-  transition: color var(--transition-fast);
+  font-size: 1.25rem;
+  transition: color 150ms ease-in-out;
   white-space: nowrap;
 }
 
@@ -60,7 +60,7 @@
   text-decoration: none;
   font-weight: 500;
   font-size: var(--font-size-base);
-  transition: color var(--transition-fast);
+  transition: color 150ms ease-in-out;
   white-space: nowrap;
 }
 
@@ -71,7 +71,7 @@
 .header__actions {
   display: flex;
   align-items: center;
-  gap: var(--spacing-lg);
+  gap: 1.5rem;
 }
 
 .header__language-selector {
@@ -90,7 +90,7 @@
   font-weight: 500;
   cursor: pointer;
   font-size: var(--font-size-sm);
-  transition: all var(--transition-fast);
+  transition: all 150ms ease-in-out;
   border-radius: var(--border-radius-md);
 }
 
@@ -114,7 +114,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: all var(--transition-fast);
+  transition: all 150ms ease-in-out;
 }
 
 .header__theme-btn:hover {
@@ -137,7 +137,7 @@
   font-family: var(--font-family-sans);
   padding: var(--spacing-sm);
   border-radius: var(--border-radius-md);
-  transition: background-color var(--transition-fast);
+  transition: background-color 150ms ease-in-out;
 }
 
 .header__user-btn:hover {
@@ -180,7 +180,7 @@
   top: calc(100% + var(--spacing-sm));
   right: 0;
   background-color: var(--bg-secondary);
-  border: 1px solid var(--border-color);
+  border: 1px solid var(--border-light);
   border-radius: var(--border-radius-md);
   box-shadow: var(--shadow-lg);
   overflow: hidden;
@@ -192,7 +192,7 @@
 .header__dropdown-item {
   display: block;
   width: 100%;
-  padding: var(--spacing-md) var(--spacing-lg);
+  padding: var(--spacing-md) 1.5rem;
   background-color: transparent;
   border: none;
   color: var(--text-primary);
@@ -200,7 +200,7 @@
   cursor: pointer;
   font-family: var(--font-family-sans);
   font-size: var(--font-size-base);
-  transition: background-color var(--transition-fast);
+  transition: background-color 150ms ease-in-out;
 }
 
 .header__dropdown-item:hover {

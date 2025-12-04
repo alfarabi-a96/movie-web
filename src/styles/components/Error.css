@@ -25,7 +25,7 @@
 .error-message {
   font-size: var(--font-size-base);
   color: var(--text-secondary);
-  margin: var(--spacing-lg) 0;
+  margin: 1.5rem 0;
   line-height: var(--line-height-relaxed);
 }
 
@@ -38,8 +38,8 @@
   border: none;
   border-radius: var(--border-radius-md);
   cursor: pointer;
-  transition: all var(--transition-fast);
-  margin-top: var(--spacing-lg);
+  transition: all 150ms ease-in-out;
+  margin-top: 1.5rem;
 }
 
 .error-retry-btn:hover {

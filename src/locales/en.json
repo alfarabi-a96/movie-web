@@ -29,7 +29,7 @@
     "required": "This field is required"
   },
   "auth": {
-    "loginTitle": "Welcome Back",
+    "loginTitle": "Welcome",
     "registerTitle": "Create Your Account",
     "loginDescription": "Sign in to your MovieFlix account",
     "registerDescription": "Join MovieFlix to start exploring movies",

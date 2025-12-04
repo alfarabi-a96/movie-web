@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { useAuth } from '../context/AuthContext';
-import { useForm } from '../hooks/useInput';
-import { Input } from '../components/Input';
-import { Button } from '../components/Button';
-import '../styles/pages/Auth.css';
+import { useAuth } from '../../context/AuthContext';
+import { useForm } from '../../hooks/useInput';
+import { Input } from '../../components/Input';
+import { Button } from '../../components/Button';
+import './index.css';
+import { EMAIL_REGEX } from '../../constants';
 
 export const LoginPage: React.FC = () => {
   const { t } = useTranslation();
@@ -26,7 +27,7 @@ export const LoginPage: React.FC = () => {
     const isValid = validate({
       email: (val) => {
         if (!val) return t('common.required');
-        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val)) return t('auth.invalidEmail');
+        if (!EMAIL_REGEX.test(val)) return t('auth.invalidEmail');
         return null;
       },
       password: (val) => (!val ? t('common.required') : null),
@@ -35,6 +36,7 @@ export const LoginPage: React.FC = () => {
     if (!isValid) return;
 
     setIsLoading(true);
+    
     try {
       await login({
         email: values.email,
@@ -103,7 +105,7 @@ export const LoginPage: React.FC = () => {
             <Button
               type="submit"
               variant="primary"
-              size="lg"
+              size='sm'
               fullWidth
               isLoading={isLoading}
             >
@@ -120,31 +122,12 @@ export const LoginPage: React.FC = () => {
               type="button"
               variant="secondary"
               fullWidth
-              onClick={() => handleSocialLogin('facebook')}
-              disabled={isLoading}
-              className="auth-social-btn"
-            >
-              f {t('auth.facebookLogin')}
-            </Button>
-            <Button
-              type="button"
-              variant="secondary"
-              fullWidth
+              size='sm'
               onClick={() => handleSocialLogin('google')}
               disabled={isLoading}
               className="auth-social-btn"
             >
               G {t('auth.googleLogin')}
-            </Button>
-            <Button
-              type="button"
-              variant="secondary"
-              fullWidth
-              onClick={() => handleSocialLogin('apple')}
-              disabled={isLoading}
-              className="auth-social-btn"
-            >
-              🍎 {t('auth.appleLogin')}
             </Button>
           </div>
 

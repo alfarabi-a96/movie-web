@@ -29,7 +29,7 @@
     "required": "Kolom ini wajib diisi"
   },
   "auth": {
-    "loginTitle": "Selamat Datang Kembali",
+    "loginTitle": "Selamat Datang",
     "registerTitle": "Buat Akun Anda",
     "loginDescription": "Masuk ke akun MovieFlix Anda",
     "registerDescription": "Bergabunglah dengan MovieFlix untuk mulai menjelajahi film",

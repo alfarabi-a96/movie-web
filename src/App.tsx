@@ -1,6 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import { AuthProvider, useAuth } from './context/AuthContext';
+import { AuthProvider } from './context/AuthContext';
 import { ThemeProvider } from './context/ThemeContext';
 import { FavoritesProvider } from './context/FavoritesContext';
 import { Header } from './components/Header';
@@ -15,11 +15,9 @@ import './styles/globals.css';
 import './App.css';
 
 const AppLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const { isAuthenticated } = useAuth();
-  
   return (
     <>
-      {isAuthenticated && <Header />}
+      <Header />
       {children}
     </>
   );
