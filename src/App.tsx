@@ -42,7 +42,7 @@ function App() {
 
                 {/* Protected Routes */}
                 <Route
-                  path='/'
+                  path='/home'
                   element={
                     <ProtectedRoute>
                       <HomePage />
@@ -75,6 +75,7 @@ function App() {
                 />
 
                 {/* Redirect unknown routes */}
+                <Route path='/' element={<Navigate to='/home' replace />} />
                 <Route path='*' element={<Navigate to='/' replace />} />
               </Routes>
             </AppLayout>

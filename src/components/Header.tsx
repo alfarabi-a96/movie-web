@@ -83,12 +83,7 @@ export const Header: React.FC = () => {
                 aria-label='User menu'
               >
                 <span className='header__user-avatar'>
-                  {user.avatar ? (
-                    <img src={user.avatar} alt={user.name} />
-                  ) : (
-                    'testt'
-                    // user.name.charAt(0).toUpperCase()
-                  )}
+                  {user?.name?.charAt(0).toUpperCase()}
                 </span>
                 <span className='header__user-name'>{user.name}</span>
               </button>

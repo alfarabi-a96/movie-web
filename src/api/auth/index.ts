@@ -7,7 +7,7 @@ import {
   updateProfile,
   type User
 } from 'firebase/auth'
-import { auth } from '../../clients/firestore/firestoreClient'
+import { auth } from '../../clients/firestoreClient'
 import { errorMap } from '../../utils/helper'
 import type { UserCredentials } from '../../types'
 

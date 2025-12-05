@@ -1,7 +1,7 @@
 .input-wrapper {
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-sm);
+  gap: 0.5rem;
 }
 
 .input-wrapper--full-width {
@@ -23,8 +23,8 @@
 
 .input {
   width: 100%;
-  padding: var(--spacing-md);
-  font-size: var(--font-size-base);
+  padding: 1rem;
+  font-size: 1rem;
   font-family: var(--font-family-sans);
   border: 1px solid var(--border-light);
   border-radius: var(--border-radius-md);

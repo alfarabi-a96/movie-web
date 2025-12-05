@@ -1,6 +1,6 @@
 .movie-details {
   position: relative;
-  padding-bottom: var(--spacing-3xl);
+  padding-bottom: 4rem;
 }
 
 .movie-details__backdrop {
@@ -35,14 +35,14 @@
   position: relative;
   display: grid;
   grid-template-columns: 250px 1fr;
-  gap: var(--spacing-2xl);
+  gap: 3rem;
   align-items: flex-start;
   z-index: 10;
 }
 
 .movie-details__poster {
   position: sticky;
-  top: var(--spacing-xl);
+  top: 2rem;
   width: 250px;
   border-radius: var(--border-radius-lg);
   overflow: hidden;
@@ -58,17 +58,17 @@
 .movie-details__info {
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-xl);
+  gap: 2rem;
 }
 
 .movie-details__header {
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-md);
+  gap: 1rem;
 }
 
 .movie-details__title {
-  font-size: var(--font-size-3xl);
+  font-size: 1.875rem;
   margin: 0;
   color: var(--text-primary);
   font-weight: 700;
@@ -79,7 +79,7 @@
   flex-wrap: wrap;
   gap: 1.5rem;
   align-items: center;
-  font-size: var(--font-size-base);
+  font-size: 1rem;
   color: var(--text-secondary);
 }
 
@@ -95,34 +95,34 @@
   font-size: var(--font-size-lg);
   font-style: italic;
   color: var(--text-secondary);
-  margin: var(--spacing-md) 0;
-  padding: var(--spacing-md);
+  margin: 1rem 0;
+  padding: 1rem;
   border-left: 3px solid var(--color-primary);
   padding-left: 1.5rem;
 }
 
 .movie-details__genres {
-  font-size: var(--font-size-base);
+  font-size: 1rem;
   color: var(--text-secondary);
   display: flex;
   flex-wrap: wrap;
-  gap: var(--spacing-sm);
-  padding: var(--spacing-md);
+  gap: 0.5rem;
+  padding: 1rem;
   background-color: var(--bg-secondary);
   border-radius: var(--border-radius-md);
 }
 
 .movie-details__actions {
   display: flex;
-  gap: var(--spacing-md);
+  gap: 1rem;
   flex-wrap: wrap;
 }
 
 .movie-details__section {
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-md);
-  padding-top: var(--spacing-xl);
+  gap: 1rem;
+  padding-top: 2rem;
   border-top: 1px solid var(--border-light);
 }
 
@@ -134,7 +134,7 @@
 }
 
 .movie-details__description {
-  font-size: var(--font-size-base);
+  font-size: 1rem;
   line-height: var(--line-height-relaxed);
   color: var(--text-secondary);
   margin: 0;
@@ -143,21 +143,21 @@
 .movie-details__grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-  gap: var(--spacing-md);
-  padding: var(--spacing-xl) 0;
+  gap: 1rem;
+  padding: 2rem 0;
   border-top: 1px solid var(--border-light);
   border-bottom: 1px solid var(--border-light);
 }
 
 .movie-details__grid-item {
-  padding: var(--spacing-md);
+  padding: 1rem;
   background-color: var(--bg-secondary);
   border-radius: var(--border-radius-md);
 }
 
 .movie-details__grid-item h3 {
   font-size: var(--font-size-sm);
-  margin: 0 0 var(--spacing-sm) 0;
+  margin: 0 0 0.5rem 0;
   color: var(--text-tertiary);
   text-transform: uppercase;
   font-weight: 600;
@@ -165,7 +165,7 @@
 
 .movie-details__grid-item p {
   margin: 0;
-  font-size: var(--font-size-base);
+  font-size: 1rem;
   color: var(--text-primary);
   font-weight: 500;
 }
@@ -173,14 +173,14 @@
 .movie-details__cast {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-  gap: var(--spacing-md);
+  gap: 1rem;
 }
 
 .movie-details__cast-item {
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-sm);
-  padding: var(--spacing-md);
+  gap: 0.5rem;
+  padding: 1rem;
   background-color: var(--bg-secondary);
   border-radius: var(--border-radius-md);
   text-align: center;
@@ -206,7 +206,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: var(--font-size-2xl);
+  font-size: 1.5rem;
   font-weight: 700;
   color: var(--color-primary);
 }
@@ -228,11 +228,11 @@
 .movie-details__crew {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: var(--spacing-md);
+  gap: 1rem;
 }
 
 .movie-details__crew-item {
-  padding: var(--spacing-md);
+  padding: 1rem;
   background-color: var(--bg-secondary);
   border-radius: var(--border-radius-md);
   border-left: 3px solid var(--color-primary);
@@ -240,7 +240,7 @@
 
 .movie-details__crew-name {
   margin: 0 0 var(--spacing-xs) 0;
-  font-size: var(--font-size-base);
+  font-size: 1rem;
   font-weight: 600;
   color: var(--text-primary);
 }
@@ -279,7 +279,7 @@
   }
 
   .movie-details__title {
-    font-size: var(--font-size-2xl);
+    font-size: 1.5rem;
   }
 
   .movie-details__cast {
@@ -307,7 +307,7 @@
   }
 
   .movie-details__meta {
-    gap: var(--spacing-md);
+    gap: 1rem;
     font-size: var(--font-size-sm);
   }
 

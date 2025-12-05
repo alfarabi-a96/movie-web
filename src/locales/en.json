@@ -1,6 +1,6 @@
 {
   "common": {
-    "appName": "MovieFlix",
+    "appName": "Alpha Movie",
     "appTagline": "Your Streaming Movie Experience",
     "search": "Search",
     "login": "Login",
@@ -31,8 +31,8 @@
   "auth": {
     "loginTitle": "Welcome",
     "registerTitle": "Create Your Account",
-    "loginDescription": "Sign in to your MovieFlix account",
-    "registerDescription": "Join MovieFlix to start exploring movies",
+    "loginDescription": "Sign in to your Alpha Movie account",
+    "registerDescription": "Join Alpha Movie to start exploring movies",
     "emailLabel": "Email Address",
     "passwordLabel": "Password",
     "confirmPassword": "Confirm Password",

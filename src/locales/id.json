@@ -1,6 +1,6 @@
 {
   "common": {
-    "appName": "MovieFlix",
+    "appName": "Alpha Movie",
     "appTagline": "Pengalaman Menonton Film Anda",
     "search": "Cari",
     "login": "Masuk",
@@ -31,8 +31,8 @@
   "auth": {
     "loginTitle": "Selamat Datang",
     "registerTitle": "Buat Akun Anda",
-    "loginDescription": "Masuk ke akun MovieFlix Anda",
-    "registerDescription": "Bergabunglah dengan MovieFlix untuk mulai menjelajahi film",
+    "loginDescription": "Masuk ke akun Alpha Movie Anda",
+    "registerDescription": "Bergabunglah dengan Alpha Movie untuk mulai menjelajahi film",
     "emailLabel": "Alamat Email",
     "passwordLabel": "Kata Sandi",
     "confirmPassword": "Konfirmasi Kata Sandi",

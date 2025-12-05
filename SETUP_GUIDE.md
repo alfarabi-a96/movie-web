@@ -1,4 +1,4 @@
-# MovieFlix - Complete Setup and Testing Guide
+# Alpha Movie - Complete Setup and Testing Guide
 
 ## ✅ Project Status: COMPLETE
 
@@ -337,4 +337,4 @@ For issues or questions:
 
 ## ✨ Enjoy!
 
-The MovieFlix application is now ready to use. Register, login, explore movies, and enjoy the full feature set!
+The Alpha Movie application is now ready to use. Register, login, explore movies, and enjoy the full feature set!

@@ -25,11 +25,11 @@ export interface SocialLoginData {
 export interface Movie {
   id: number
   title: string
-  posterPath: string
+  poster_path: string
   backdropPath?: string
-  releaseDate: string
+  release_date: string
   overview: string
-  rating: number
+  vote_average: number
   voteCount: number
   genres: Genre[]
   runtime?: number

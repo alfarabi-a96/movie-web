@@ -81,7 +81,7 @@ export const LoginPage: React.FC = () => {
   //     const mockData = {
   //       id: `${provider}-${Date.now()}`,
   //       name: `Demo User (${provider})`,
-  //       email: `demo-${provider}@movieflix.local`,
+  //       email: `demo-${provider}@Alpha Movie.local`,
   //       avatar: undefined,
   //     };
   //     await loginWithSocial(provider, mockData);

@@ -8,3 +8,6 @@ export const FIREBASE_MESSAGING_SENDER_ID = import.meta.env
   .VITE_FIREBASE_MESSAGING_SENDER_ID
 export const FIREBASE_MEASUREMENT_ID = import.meta.env
   .VITE_FIREBASE_MEASUREMENT_ID
+export const API_BASE_URL = import.meta.env.VITE_API_BASE_URL
+export const API_TOKEN = import.meta.env.VITE_API_TOKEN
+export const IMAGE_BASE_URL = import.meta.env.VITE_IMAGE_BASE_URL

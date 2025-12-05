@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useEffect } from 'react'
+import React, { createContext, useContext, useState } from 'react'
 import type { ReactNode } from 'react'
 import type {
   User,
@@ -20,15 +20,10 @@ interface AuthProviderProps {
 }
 
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
-  const [user, setUser] = useState<User | null>(null)
-
-  // Load user from localStorage on mount
-  useEffect(() => {
+  const [user, setUser] = useState<User | null>(() => {
     const storedUser = localStorage.getItem('currentUser')
-    if (storedUser) {
-      setUser(JSON.parse(storedUser))
-    }
-  }, [])
+    return storedUser ? JSON.parse(storedUser) : null
+  })
 
   const register = async (credentials: SignUpCredentials) => {
     const { name, email, password } = credentials
