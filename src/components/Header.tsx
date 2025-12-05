@@ -84,7 +84,8 @@ export const Header: React.FC = () => {
                   {user.avatar ? (
                     <img src={user.avatar} alt={user.name} />
                   ) : (
-                    user.name.charAt(0).toUpperCase()
+                    'testt'
+                    // user.name.charAt(0).toUpperCase()
                   )}
                 </span>
                 <span className="header__user-name">{user.name}</span>

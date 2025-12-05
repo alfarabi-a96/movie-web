@@ -97,11 +97,13 @@
     "tryDifferentKeyword": "Try a different keyword"
   },
   "errors": {
+    "loginError": "Your username and/or password is incorrect. Please try again.",
     "loadingError": "Error loading movies",
     "networkError": "Network error. Please check your connection",
     "notFound": "Movie not found",
     "unauthorized": "Please login to access this page",
     "serverError": "Server error. Please try again later",
-    "tryAgain": "Try Again"
+    "tryAgain": "Try Again",
+    "popupClosedByUser": "Login process was cancelled. Please try again."
   }
 }

@@ -97,11 +97,13 @@
     "tryDifferentKeyword": "Coba kata kunci yang berbeda"
   },
   "errors": {
+    "loginError": "Nama pengguna dan/atau kata sandi Anda tidak benar. Silakan coba lagi",
     "loadingError": "Kesalahan memuat film",
     "networkError": "Kesalahan jaringan. Periksa koneksi Anda",
     "notFound": "Film tidak ditemukan",
     "unauthorized": "Silakan masuk untuk mengakses halaman ini",
     "serverError": "Kesalahan server. Silakan coba lagi nanti",
-    "tryAgain": "Coba Lagi"
+    "tryAgain": "Coba Lagi",
+    "popupClosedByUser": "Proses masuk dibatalkan. Silakan coba lagi."
   }
 }

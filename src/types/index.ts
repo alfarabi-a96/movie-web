@@ -1,16 +1,17 @@
 // User and Authentication Types
 export interface User {
-  id: string;
-  email: string;
-  name: string;
-  avatar?: string;
-  loginMethod: 'email' | 'facebook' | 'google' | 'apple';
-  createdAt: string;
+  email: string | null;
+  name: string | null;
 }
 
-export interface LoginCredentials {
+export interface UserCredentials {
   email: string;
   password: string;
+  isWithGoogle?: boolean;
+}
+
+export interface SignUpCredentials extends UserCredentials {
+  name: string;
 }
 
 export interface SocialLoginData {
@@ -84,9 +85,8 @@ export interface PaginatedResponse<T> {
 export interface AuthContextType {
   user: User | null;
   isAuthenticated: boolean;
-  login: (credentials: LoginCredentials) => Promise<void>;
-  loginWithSocial: (provider: 'facebook' | 'google' | 'apple', data: SocialLoginData) => Promise<void>;
-  register: (user: Omit<User, 'id' | 'createdAt'>, password: string) => Promise<void>;
+  login: (credentials: UserCredentials) => Promise<void>;
+  register: (credential: SignUpCredentials) => Promise<void>;
   logout: () => void;
 }
 

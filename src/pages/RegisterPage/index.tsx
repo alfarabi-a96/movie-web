@@ -5,94 +5,98 @@ import { useAuth } from '../../context/AuthContext';
 import { useForm } from '../../hooks/useInput';
 import { Input } from '../../components/Input';
 import { Button } from '../../components/Button';
-import { EMAIL_REGEX, INVALID_CREDENTIAL, INVALID_EMAIL_FORMAT, POPUP_CLOSED_BY_USER, REQUIRED_ERROR, SERVER_ERROR } from '../../constants';
-import './index.css';
+import { EMAIL_REGEX, INVALID_EMAIL_FORMAT, MAX_LENGTH_ERROR, MISMATCH_ERROR, REQUIRED_ERROR, SERVER_ERROR } from '../../constants';
+import '../../pages/LoginPage/index.css';
 
-export const LoginPage: React.FC = () => {
+
+export const RegisterPage: React.FC = () => {
   const { t } = useTranslation();
-  const { login } = useAuth();
+  const { register } = useAuth();
   const navigate = useNavigate();
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 
   const { values, errors, bind, validate, reset } = useForm({
+    name: '',
     email: '',
     password: '',
+    confirmPassword: '',
   });
 
   const errorMessage = useMemo(() => ({
-    [INVALID_CREDENTIAL]: t('errors.loginError'),
     [SERVER_ERROR]: t('errors.serverError'),
     [REQUIRED_ERROR]: t('common.required'),
     [INVALID_EMAIL_FORMAT]: t('auth.invalidEmail'),
-    [POPUP_CLOSED_BY_USER]: t('errors.popupClosedByUser')
+    [MISMATCH_ERROR]: t('auth.passwordMismatch'),
+    [MAX_LENGTH_ERROR]: t('auth.passwordTooShort')
   }), [t])
 
-  const handleSubmit = async (e: React.FormEvent, isWithGoogle = false) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
 
-    const isValid = !isWithGoogle && validate({
+    const isValid = validate({
+      name: (val) => (!val ? REQUIRED_ERROR : null),
       email: (val) => {
         if (!val) return REQUIRED_ERROR;
         if (!EMAIL_REGEX.test(val)) return INVALID_EMAIL_FORMAT;
         return null;
       },
-      password: (val) => (!val ? REQUIRED_ERROR : null),
+      password: (val) => {
+        if (!val) return REQUIRED_ERROR;
+        if (val.length < 6) return MAX_LENGTH_ERROR;
+        return null;
+      },
+      confirmPassword: (val) => {
+        if (!val) return REQUIRED_ERROR;
+        if (val !== values.password) return MISMATCH_ERROR;
+        return null;
+      },
     });
 
-    if (!isValid && !isWithGoogle) return;
+    if (!isValid) return;
 
     setIsLoading(true);
     try {
-      await login({
-        email: values.email,
-        password: values.password,
-        isWithGoogle
-      });
+      await register(
+        {
+          name: values.name,
+          email: values.email,
+          password: values.password,
+        },
+      );
       reset();
-      navigate('/');
+      alert(t('auth.registerSuccess'));
+      navigate('/login');
     } catch (err) {
-      const errorMessage = err instanceof Error ? err.message : SERVER_ERROR;
-      setError(errorMessage);
+      setError(err instanceof Error ? err.message : SERVER_ERROR);
     } finally {
       setIsLoading(false);
     }
   };
-
-  // const handleSocialLogin = async (
-  //   provider: 'facebook' | 'google' | 'apple'
-  // ) => {
-  //   setError('');
-  //   setIsLoading(true);
-  //   try {
-  //     const mockData = {
-  //       id: `${provider}-${Date.now()}`,
-  //       name: `Demo User (${provider})`,
-  //       email: `demo-${provider}@movieflix.local`,
-  //       avatar: undefined,
-  //     };
-  //     await loginWithSocial(provider, mockData);
-  //     navigate('/');
-  //   } catch (err) {
-  //     setError(err instanceof Error ? err.message : t('errors.serverError'));
-  //   } finally {
-  //     setIsLoading(false);
-  //   }
-  // };
 
   return (
     <div className="auth-page">
       <div className="auth-container">
         <div className="auth-card">
           <div className="auth-header">
-            <h1 className="auth-title">{t('auth.loginTitle')}</h1>
-            <p className="auth-subtitle">{t('auth.loginDescription')}</p>
+            <h1 className="auth-title">{t('auth.registerTitle')}</h1>
+            <p className="auth-subtitle">{t('auth.registerDescription')}</p>
           </div>
 
           {error && <div className="auth-error">{errorMessage[error as keyof typeof errorMessage]}</div>}
 
           <form onSubmit={handleSubmit} className="auth-form">
+            <Input
+              label={t('auth.nameLabel')}
+              type="text"
+              placeholder="John Doe"
+              {...bind('name')}
+              error={errorMessage[errors.name as keyof typeof errorMessage]}
+              disabled={isLoading}
+              required
+            />
+
             <Input
               label={t('auth.emailLabel')}
               type="text"
@@ -111,40 +115,30 @@ export const LoginPage: React.FC = () => {
               disabled={isLoading}
             />
 
+            <Input
+              label={t('auth.confirmPassword')}
+              type="password"
+              placeholder="••••••••"
+              {...bind('confirmPassword')}
+              error={errorMessage[errors.confirmPassword as keyof typeof errorMessage]}
+              disabled={isLoading}
+            />
+
             <Button
               type="submit"
               variant="primary"
-              size='sm'
               fullWidth
               isLoading={isLoading}
             >
-              {t('common.login')}
+              {t('common.register')}
             </Button>
           </form>
 
-          <div className="auth-divider">
-            <span>{t('auth.orContinueWith')}</span>
-          </div>
-
-          <div className="auth-social">
-            <Button
-              type="button"
-              variant="secondary"
-              fullWidth
-              size='sm'
-              onClick={(event) => handleSubmit(event, true)}
-              disabled={isLoading}
-              className="auth-social-btn"
-            >
-              G {t('auth.googleLogin')}
-            </Button>
-          </div>
-
           <div className="auth-footer">
             <p>
-              {t('auth.dontHaveAccount')}{' '}
-              <Link to="/register" className="auth-link">
-                {t('common.register')}
+              {t('auth.alreadyHaveAccount')}{' '}
+              <Link to="/login" className="auth-link">
+                {t('common.login')}
               </Link>
             </p>
           </div>
