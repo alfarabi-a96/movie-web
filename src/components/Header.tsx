@@ -1,62 +1,62 @@
-import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
-import { useAuth } from '../context/AuthContext';
-import { useTheme } from '../context/ThemeContext';
-import '../styles/components/Header.css';
+import React, { useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
+import { useAuth } from '../context/AuthContext'
+import { useTheme } from '../context/ThemeContext'
+import '../styles/components/Header.css'
 
 export const Header: React.FC = () => {
-  const { t, i18n } = useTranslation();
-  const { user, logout } = useAuth();
-  const { theme, toggleTheme } = useTheme();
-  const navigate = useNavigate();
-  const [showUserMenu, setShowUserMenu] = useState(false);
+  const { t, i18n } = useTranslation()
+  const { user, logout } = useAuth()
+  const { theme, toggleTheme } = useTheme()
+  const navigate = useNavigate()
+  const [showUserMenu, setShowUserMenu] = useState(false)
 
   const handleLogout = () => {
-    logout();
-    navigate('/login');
-    setShowUserMenu(false);
-  };
+    logout()
+    navigate('/login')
+    setShowUserMenu(false)
+  }
 
   const handleLanguageChange = (lng: string) => {
-    i18n.changeLanguage(lng);
-  };
+    i18n.changeLanguage(lng)
+  }
 
   return (
-    <header className="header">
-      <div className="header__container">
-        <Link to="/" className="header__logo">
-          <span className="header__logo-icon">🎬</span>
-          <span className="header__logo-text">{t('common.appName')}</span>
+    <header className='header'>
+      <div className='header__container'>
+        <Link to='/' className='header__logo'>
+          <span className='header__logo-icon'>🎬</span>
+          <span className='header__logo-text'>{t('common.appName')}</span>
         </Link>
 
-        <nav className="header__nav">
+        <nav className='header__nav'>
           {user && (
             <>
-              <Link to="/" className="header__link">
+              <Link to='/' className='header__link'>
                 {t('common.home')}
               </Link>
-              <Link to="/favorites" className="header__link">
+              <Link to='/favorites' className='header__link'>
                 {t('common.favorites')}
               </Link>
             </>
           )}
         </nav>
 
-        <div className="header__actions">
+        <div className='header__actions'>
           {/* Language Selector */}
-          <div className="header__language-selector">
+          <div className='header__language-selector'>
             <button
               className={`header__language-btn ${i18n.language === 'en' ? 'active' : ''}`}
               onClick={() => handleLanguageChange('en')}
-              title="English"
+              title='English'
             >
               EN
             </button>
             <button
               className={`header__language-btn ${i18n.language === 'id' ? 'active' : ''}`}
               onClick={() => handleLanguageChange('id')}
-              title="Indonesia"
+              title='Indonesia'
             >
               ID
             </button>
@@ -64,23 +64,25 @@ export const Header: React.FC = () => {
 
           {/* Theme Toggle */}
           <button
-            className="header__theme-btn"
+            className='header__theme-btn'
             onClick={toggleTheme}
-            title={theme === 'light' ? t('common.darkMode') : t('common.lightMode')}
-            aria-label="Toggle theme"
+            title={
+              theme === 'light' ? t('common.darkMode') : t('common.lightMode')
+            }
+            aria-label='Toggle theme'
           >
             {theme === 'light' ? '🌙' : '☀️'}
           </button>
 
           {/* User Menu */}
           {user ? (
-            <div className="header__user-menu">
+            <div className='header__user-menu'>
               <button
-                className="header__user-btn"
+                className='header__user-btn'
                 onClick={() => setShowUserMenu(!showUserMenu)}
-                aria-label="User menu"
+                aria-label='User menu'
               >
-                <span className="header__user-avatar">
+                <span className='header__user-avatar'>
                   {user.avatar ? (
                     <img src={user.avatar} alt={user.name} />
                   ) : (
@@ -88,13 +90,13 @@ export const Header: React.FC = () => {
                     // user.name.charAt(0).toUpperCase()
                   )}
                 </span>
-                <span className="header__user-name">{user.name}</span>
+                <span className='header__user-name'>{user.name}</span>
               </button>
 
               {showUserMenu && (
-                <div className="header__dropdown">
+                <div className='header__dropdown'>
                   <button
-                    className="header__dropdown-item"
+                    className='header__dropdown-item'
                     onClick={handleLogout}
                   >
                     {t('common.logout')}
@@ -106,5 +108,5 @@ export const Header: React.FC = () => {
         </div>
       </div>
     </header>
-  );
-};
+  )
+}

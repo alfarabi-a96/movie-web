@@ -6,4 +6,4 @@ export const MISMATCH_ERROR = 'MISMATCH_ERROR'
 export const MAX_LENGTH_ERROR = 'MAX_LENGTH_ERROR'
 export const POPUP_CLOSED_BY_USER = 'POPUP_CLOSED_BY_USER'
 
-export const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+export const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/

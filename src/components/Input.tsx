@@ -1,11 +1,11 @@
-import React from 'react';
-import '../styles/components/Input.css';
+import React from 'react'
+import '../styles/components/Input.css'
 
 interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
-  label?: string;
-  error?: string;
-  helperText?: string;
-  fullWidth?: boolean;
+  label?: string
+  error?: string
+  helperText?: string
+  fullWidth?: boolean
 }
 
 export const Input: React.FC<InputProps> = ({
@@ -18,14 +18,16 @@ export const Input: React.FC<InputProps> = ({
   className,
   ...props
 }) => {
-  const inputId = id || `input-${Math.random()}`;
-  
+  const inputId = id || `input-${Math.random()}`
+
   return (
-    <div className={`input-wrapper ${fullWidth ? 'input-wrapper--full-width' : ''}`}>
+    <div
+      className={`input-wrapper ${fullWidth ? 'input-wrapper--full-width' : ''}`}
+    >
       {label && (
-        <label htmlFor={inputId} className="input-label">
+        <label htmlFor={inputId} className='input-label'>
           {label}
-          {props.required && <span className="input-required">*</span>}
+          {props.required && <span className='input-required'>*</span>}
         </label>
       )}
       <input
@@ -34,8 +36,10 @@ export const Input: React.FC<InputProps> = ({
         className={`input ${error ? 'input--error' : ''} ${className || ''}`}
         {...props}
       />
-      {error && <span className="input-error">{error}</span>}
-      {helperText && !error && <span className="input-helper">{helperText}</span>}
+      {error && <span className='input-error'>{error}</span>}
+      {helperText && !error && (
+        <span className='input-helper'>{helperText}</span>
+      )}
     </div>
-  );
-};
+  )
+}

@@ -1,4 +1,12 @@
-import { createUserWithEmailAndPassword, GoogleAuthProvider, signInWithEmailAndPassword, signInWithPopup, signOut, updateProfile, type User } from 'firebase/auth'
+import {
+  createUserWithEmailAndPassword,
+  GoogleAuthProvider,
+  signInWithEmailAndPassword,
+  signInWithPopup,
+  signOut,
+  updateProfile,
+  type User
+} from 'firebase/auth'
 import { auth } from '../../clients/firestore/firestoreClient'
 import { errorMap } from '../../utils/helper'
 import type { UserCredentials } from '../../types'
@@ -19,9 +27,9 @@ export const loginUser = async (email: string, password: string) => {
 
 // Login user with Google
 export const loginUserByGoogle = async () => {
-  const provider = new GoogleAuthProvider();
+  const provider = new GoogleAuthProvider()
   try {
-      const userCredential = await signInWithPopup(auth, provider);
+    const userCredential = await signInWithPopup(auth, provider)
     return userCredential.user
   } catch (error) {
     throw errorMap(error)
@@ -32,8 +40,12 @@ export const loginUserByGoogle = async () => {
 export const signUpUser = async (credential: UserCredentials) => {
   const { email, password } = credential
   try {
-    const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-    const user = userCredential.user;
+    const userCredential = await createUserWithEmailAndPassword(
+      auth,
+      email,
+      password
+    )
+    const user = userCredential.user
     return user
   } catch (error) {
     throw errorMap(error)
@@ -43,8 +55,8 @@ export const signUpUser = async (credential: UserCredentials) => {
 export const updateUser = async (user: User, name: string) => {
   try {
     await updateProfile(user, {
-      displayName: name,
-    });
+      displayName: name
+    })
   } catch (error) {
     throw errorMap(error)
   }

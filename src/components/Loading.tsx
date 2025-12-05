@@ -1,16 +1,19 @@
-import React from 'react';
-import '../styles/components/Loading.css';
+import React from 'react'
+import '../styles/components/Loading.css'
 
 interface LoadingProps {
-  fullHeight?: boolean;
-  message?: string;
+  fullHeight?: boolean
+  message?: string
 }
 
-export const Loading: React.FC<LoadingProps> = ({ fullHeight = false, message = 'Loading...' }) => {
+export const Loading: React.FC<LoadingProps> = ({
+  fullHeight = false,
+  message = 'Loading...'
+}) => {
   return (
     <div className={`loading ${fullHeight ? 'loading--full-height' : ''}`}>
-      <div className="loading__spinner"></div>
-      <p className="loading__text">{message}</p>
+      <div className='loading__spinner'></div>
+      <p className='loading__text'>{message}</p>
     </div>
-  );
-};
+  )
+}
