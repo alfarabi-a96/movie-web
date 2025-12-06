@@ -27,7 +27,7 @@ export const MovieCard: React.FC<MovieCardProps> = ({ movie }) => {
     <Link to={`/movie/${movie.id}`} className='movie-card'>
       <div className='movie-card__poster'>
         <img
-          src={`${IMAGE_BASE_URL}${movie.poster_path}`}
+          src={`${IMAGE_BASE_URL}/w185${movie.poster_path}`}
           alt={movie.title}
           className='movie-card__image'
           loading='lazy'

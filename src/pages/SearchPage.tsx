@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
-import { movieService } from '../services/movieService'
+// import { movieService } from '../services/movieService'
 import { MovieCard } from '../components/MovieCard'
 import { Loading } from '../components/Loading'
 import { Error } from '../components/Error'

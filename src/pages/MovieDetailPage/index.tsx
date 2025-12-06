@@ -1,56 +1,158 @@
-import React, { useState, useEffect } from 'react'
+import React, { useMemo } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
-import { movieService } from '../../services/movieService'
 import { useFavorites } from '../../context/FavoritesContext'
 import { Button } from '../../components/Button'
 import { Loading } from '../../components/Loading'
 import { Error } from '../../components/Error'
-import type { Movie } from '../../types'
+import type { Locale, Movie, CastMember, CrewMember } from '../../types'
+import { useMoviewDetailsQuery } from '../../queries'
+import { IMAGE_BASE_URL } from '../../clients/endpoint'
 import './index.css'
+
+const formatCurrency = (value: number): string => {
+  return `$${(value / 1000000).toFixed(1)}M`
+}
+
+const getReleaseYear = (releaseDate: string): number => {
+  return new Date(releaseDate).getFullYear()
+}
+
+const getGenresList = (genres: Movie['genres']): string => {
+  return genres.map((genre) => genre.name).join(', ')
+}
+
+const getUniqueCrew = (crew: CrewMember[]): CrewMember[] => {
+  return crew.filter(
+    (item, index, self) => index === self.findIndex((c) => c.id === item.id)
+  )
+}
+
+const ActorAvatar: React.FC<{ actor: CastMember }> = ({ actor }) => {
+  if (!actor.profile_path) {
+    return (
+      <div className='movie-details__cast-placeholder'>
+        {actor.name.charAt(0).toUpperCase()}
+      </div>
+    )
+  }
+  return (
+    <img src={`${IMAGE_BASE_URL}/w185${actor.profile_path}`} alt={actor.name} />
+  )
+}
+
+const CastSection: React.FC<{ cast: CastMember[]; t: any }> = ({ cast, t }) => {
+  if (!cast || cast.length === 0) return null
+
+  return (
+    <div className='movie-details__section'>
+      <h2 className='movie-details__section-title'>{t('movies.cast')}</h2>
+      <div className='movie-details__cast'>
+        {cast.slice(0, 5).map((actor: CastMember) => (
+          <div key={actor.cast_id} className='movie-details__cast-item'>
+            <div className='movie-details__cast-avatar'>
+              <ActorAvatar actor={actor} />
+            </div>
+            <div className='movie-details__cast-info'>
+              <p className='movie-details__cast-name'>{actor.name}</p>
+              <p className='movie-details__cast-role'>{actor.character}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  )
+}
+
+const CrewSection: React.FC<{ crew: CrewMember[]; t: any }> = ({ crew, t }) => {
+  const uniqueCrew = useMemo(() => getUniqueCrew(crew), [crew])
+
+  if (uniqueCrew.length === 0) return null
+
+  return (
+    <div className='movie-details__section'>
+      <h2 className='movie-details__section-title'>{t('movies.crew')}</h2>
+      <div className='movie-details__crew'>
+        {uniqueCrew.slice(0, 4).map((member: CrewMember) => (
+          <div key={member.id} className='movie-details__crew-item'>
+            <p className='movie-details__crew-name'>{member.name}</p>
+            <p className='movie-details__crew-role'>{member.job}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  )
+}
+
+const DetailsGrid: React.FC<{ movie: Movie; t: any }> = ({ movie, t }) => {
+  const details = useMemo(
+    () =>
+      [
+        movie.budget && {
+          label: t('movies.budget'),
+          value: formatCurrency(movie.budget)
+        },
+        movie.revenue && {
+          label: t('movies.revenue'),
+          value: formatCurrency(movie.revenue)
+        },
+        movie.status && {
+          label: t('movies.status'),
+          value: movie.status
+        },
+        {
+          label: t('movies.releaseDate'),
+          value: new Date(movie.release_date).toLocaleDateString()
+        }
+      ].filter(Boolean) as Array<{ label: string; value: string }>,
+    [movie, t]
+  )
+
+  return (
+    <div className='movie-details__grid'>
+      {details.map((detail, index) => (
+        <div key={index} className='movie-details__grid-item'>
+          <h3>{detail?.label}</h3>
+          <p>{detail?.value}</p>
+        </div>
+      ))}
+    </div>
+  )
+}
 
 export const MovieDetailsPage: React.FC = () => {
   const { id } = useParams<{ id: string }>()
   const navigate = useNavigate()
   const { t } = useTranslation()
   const { isFavorite, addFavorite, removeFavorite } = useFavorites()
-  const [movie, setMovie] = useState<Movie | null>(null)
-  const [isLoading, setIsLoading] = useState(true)
-  const [error, setError] = useState<string | null>(null)
 
-  useEffect(() => {
-    const loadMovie = async () => {
-      if (!id) {
-        setError(t('errors.notFound'))
-        return
-      }
+  const language = (localStorage.getItem('language') ?? 'en') as Locale
+  const {
+    data: movieDetails,
+    isLoading,
+    error
+  } = useMoviewDetailsQuery(id as string, language)
 
-      setIsLoading(true)
-      try {
-        const data = await movieService.getMovieById(parseInt(id, 10))
-        if (!data) {
-          setError(t('errors.notFound'))
-        } else {
-          setMovie(data)
-        }
-      } catch (err) {
-        const error = err as Error
-        setError(error.message || t('errors.loadingError'))
-      } finally {
-        setIsLoading(false)
-      }
-    }
+  const releaseYear = useMemo(
+    () => (movieDetails ? getReleaseYear(movieDetails.release_date) : null),
+    [movieDetails]
+  )
 
-    loadMovie()
-  }, [id, t])
+  const genresList = useMemo(
+    () => (movieDetails ? getGenresList(movieDetails.genres) : ''),
+    [movieDetails]
+  )
 
-  const handleFavoriteToggle = () => {
-    if (!movie) return
+  const favorite = movieDetails ? isFavorite(movieDetails.id) : false
 
-    if (isFavorite(movie.id)) {
-      removeFavorite(movie.id)
+  const handleFavoriteToggle = (e: React.MouseEvent) => {
+    e.preventDefault()
+    if (!movieDetails) return
+
+    if (favorite) {
+      removeFavorite(movieDetails.id)
     } else {
-      addFavorite(movie)
+      addFavorite(movieDetails)
     }
   }
 
@@ -58,21 +160,17 @@ export const MovieDetailsPage: React.FC = () => {
     return <Loading fullHeight message={t('common.loading')} />
   }
 
-  if (error || !movie) {
-    return <Error message={error || t('errors.notFound')} />
+  if (error || !movieDetails) {
+    return <Error message={t('errors.notFound')} />
   }
-
-  const releaseYear = new Date(movie.releaseDate).getFullYear()
-  const genresList = movie.genres.map((g) => g.name).join(', ')
-  const favorite = isFavorite(movie.id)
 
   return (
     <div className='movie-details'>
       {/* Backdrop */}
       <div className='movie-details__backdrop'>
         <img
-          src={movie.backdropPath}
-          alt={movie.title}
+          src={`${IMAGE_BASE_URL}/w780${movieDetails.backdrop_path}`}
+          alt={movieDetails.original_title}
           className='movie-details__backdrop-image'
         />
         <div className='movie-details__backdrop-overlay'></div>
@@ -83,28 +181,31 @@ export const MovieDetailsPage: React.FC = () => {
         <div className='movie-details__content'>
           {/* Poster */}
           <div className='movie-details__poster'>
-            <img src={movie.posterPath} alt={movie.title} />
+            <img
+              src={`${IMAGE_BASE_URL}/w185${movieDetails.poster_path}`}
+              alt={movieDetails.title}
+            />
           </div>
 
           {/* Info */}
           <div className='movie-details__info'>
             <div className='movie-details__header'>
-              <h1 className='movie-details__title'>{movie.title}</h1>
+              <h1 className='movie-details__title'>{movieDetails.title}</h1>
               <div className='movie-details__meta'>
                 <span className='movie-details__year'>{releaseYear}</span>
                 <span className='movie-details__rating'>
-                  ⭐ {movie.rating.toFixed(1)}/10
+                  ⭐ {movieDetails.vote_average.toFixed(1)}/10
                 </span>
-                {movie.runtime && (
+                {movieDetails.runtime && (
                   <span className='movie-details__runtime'>
-                    ⏱ {movie.runtime} {t('movies.minutes')}
+                    ⏱ {movieDetails.runtime} {t('movies.minutes')}
                   </span>
                 )}
               </div>
             </div>
 
-            {movie.tagline && (
-              <p className='movie-details__tagline'>"{movie.tagline}"</p>
+            {movieDetails.tagline && (
+              <p className='movie-details__tagline'>"{movieDetails.tagline}"</p>
             )}
 
             <div className='movie-details__genres'>{genresList}</div>
@@ -130,80 +231,22 @@ export const MovieDetailsPage: React.FC = () => {
               <h2 className='movie-details__section-title'>
                 {t('movies.overview')}
               </h2>
-              <p className='movie-details__description'>{movie.overview}</p>
+              <p className='movie-details__description'>
+                {movieDetails.overview}
+              </p>
             </div>
 
             {/* Details Grid */}
-            <div className='movie-details__grid'>
-              {movie.budget && (
-                <div className='movie-details__grid-item'>
-                  <h3>{t('movies.budget')}</h3>
-                  <p>${(movie.budget / 1000000).toFixed(1)}M</p>
-                </div>
-              )}
-              {movie.revenue && (
-                <div className='movie-details__grid-item'>
-                  <h3>{t('movies.revenue')}</h3>
-                  <p>${(movie.revenue / 1000000).toFixed(1)}M</p>
-                </div>
-              )}
-              {movie.status && (
-                <div className='movie-details__grid-item'>
-                  <h3>{t('movies.status')}</h3>
-                  <p>{movie.status}</p>
-                </div>
-              )}
-              <div className='movie-details__grid-item'>
-                <h3>{t('movies.releaseDate')}</h3>
-                <p>{new Date(movie.releaseDate).toLocaleDateString()}</p>
-              </div>
-            </div>
+            <DetailsGrid movie={movieDetails} t={t} />
 
             {/* Cast */}
-            {movie.cast && movie.cast.length > 0 && (
-              <div className='movie-details__section'>
-                <h2 className='movie-details__section-title'>
-                  {t('movies.cast')}
-                </h2>
-                <div className='movie-details__cast'>
-                  {movie.cast.map((actor) => (
-                    <div key={actor.id} className='movie-details__cast-item'>
-                      <div className='movie-details__cast-avatar'>
-                        {actor.profilePath ? (
-                          <img src={actor.profilePath} alt={actor.name} />
-                        ) : (
-                          <div className='movie-details__cast-placeholder'>
-                            {actor.name.charAt(0).toUpperCase()}
-                          </div>
-                        )}
-                      </div>
-                      <div className='movie-details__cast-info'>
-                        <p className='movie-details__cast-name'>{actor.name}</p>
-                        <p className='movie-details__cast-role'>
-                          {actor.character}
-                        </p>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
+            {movieDetails.credits && (
+              <CastSection cast={movieDetails.credits.cast} t={t} />
             )}
 
             {/* Crew */}
-            {movie.crew && movie.crew.length > 0 && (
-              <div className='movie-details__section'>
-                <h2 className='movie-details__section-title'>
-                  {t('movies.crew')}
-                </h2>
-                <div className='movie-details__crew'>
-                  {movie.crew.map((member) => (
-                    <div key={member.id} className='movie-details__crew-item'>
-                      <p className='movie-details__crew-name'>{member.name}</p>
-                      <p className='movie-details__crew-role'>{member.job}</p>
-                    </div>
-                  ))}
-                </div>
-              </div>
+            {movieDetails.credits && (
+              <CrewSection crew={movieDetails.credits.crew} t={t} />
             )}
           </div>
         </div>

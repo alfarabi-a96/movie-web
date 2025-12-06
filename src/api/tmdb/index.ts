@@ -4,7 +4,8 @@ export const fetchMovieById = async (movieId: string, language: string) => {
   return apiFetch(`/movie/${movieId}`, {
     method: 'GET',
     params: {
-      language
+      language,
+      append_to_response: 'credits'
     }
   })
 }
