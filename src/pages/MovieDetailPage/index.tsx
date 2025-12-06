@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
-import { movieService } from '../services/movieService'
-import { useFavorites } from '../context/FavoritesContext'
-import { Button } from '../components/Button'
-import { Loading } from '../components/Loading'
-import { Error } from '../components/Error'
-import type { Movie } from '../types'
-import '../styles/pages/MovieDetails.css'
+import { movieService } from '../../services/movieService'
+import { useFavorites } from '../../context/FavoritesContext'
+import { Button } from '../../components/Button'
+import { Loading } from '../../components/Loading'
+import { Error } from '../../components/Error'
+import type { Movie } from '../../types'
+import './index.css'
 
 export const MovieDetailsPage: React.FC = () => {
   const { id } = useParams<{ id: string }>()

@@ -37,6 +37,10 @@
   padding: 0 1rem;
 }
 
+.list-movie-container {
+  min-height: 400px;
+}
+
 /* Responsive */
 @media (max-width: 1024px) {
   .home-hero__title {

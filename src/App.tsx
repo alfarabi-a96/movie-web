@@ -14,7 +14,7 @@ import { LoginPage } from './pages/LoginPage'
 import { RegisterPage } from './pages/RegisterPage'
 import { HomePage } from './pages/HomePage'
 import { SearchPage } from './pages/SearchPage'
-import { MovieDetailsPage } from './pages/MovieDetailsPage'
+import { MovieDetailsPage } from './pages/MovieDetailPage'
 import { FavoritesPage } from './pages/FavoritesPage'
 import './styles/globals.css'
 import './App.css'
@@ -44,9 +44,9 @@ function App() {
                 <Route
                   path='/home'
                   element={
-                    <ProtectedRoute>
-                      <HomePage />
-                    </ProtectedRoute>
+                    // <ProtectedRoute>
+                    <HomePage />
+                    // </ProtectedRoute>
                   }
                 />
                 <Route
@@ -60,9 +60,9 @@ function App() {
                 <Route
                   path='/movie/:id'
                   element={
-                    <ProtectedRoute>
-                      <MovieDetailsPage />
-                    </ProtectedRoute>
+                    // <ProtectedRoute>
+                    <MovieDetailsPage />
+                    // </ProtectedRoute>
                   }
                 />
                 <Route

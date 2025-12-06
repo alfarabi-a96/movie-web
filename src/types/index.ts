@@ -1,4 +1,5 @@
-// User and Authentication Types
+export type Locale = 'en' | 'id'
+
 export interface User {
   email: string | null
   name: string | null
@@ -21,7 +22,6 @@ export interface SocialLoginData {
   avatar?: string
 }
 
-// Movie Types
 export interface Movie {
   id: number
   title: string
@@ -67,7 +67,6 @@ export interface MovieCategory {
   label: string
 }
 
-// API Response Types
 export interface ApiResponse<T> {
   data: T
   status: 'success' | 'error'
@@ -81,7 +80,6 @@ export interface PaginatedResponse<T> {
   totalResults: number
 }
 
-// Auth Context
 export interface AuthContextType {
   user: User | null
   isAuthenticated: boolean
@@ -90,16 +88,19 @@ export interface AuthContextType {
   logout: () => void
 }
 
-// Theme Context
 export interface ThemeContextType {
   theme: 'light' | 'dark'
   toggleTheme: () => void
 }
 
-// Favorites Context
 export interface FavoritesContextType {
   favorites: Movie[]
   addFavorite: (movie: Movie) => void
   removeFavorite: (movieId: number) => void
   isFavorite: (movieId: number) => boolean
+}
+
+export interface LocaleConfig {
+  language: Record<Locale, string>
+  region: Record<Locale, string>
 }
