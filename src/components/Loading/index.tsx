@@ -1,5 +1,5 @@
 import React from 'react'
-import '../styles/components/Loading.css'
+import './index.css'
 
 interface LoadingProps {
   fullHeight?: boolean

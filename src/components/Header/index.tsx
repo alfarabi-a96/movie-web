@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
-import { useAuth } from '../context/AuthContext'
-import { useTheme } from '../context/ThemeContext'
-import '../styles/components/Header.css'
+import { useAuth } from '../../context/AuthContext'
+import { useTheme } from '../../context/ThemeContext'
+import './index.css'
 
 export const Header: React.FC = () => {
   const { t, i18n } = useTranslation()
@@ -11,6 +11,7 @@ export const Header: React.FC = () => {
   const { theme, toggleTheme } = useTheme()
   const navigate = useNavigate()
   const [showUserMenu, setShowUserMenu] = useState(false)
+  const [showMobileMenu, setShowMobileMenu] = useState(false)
 
   const handleLogout = () => {
     logout()
@@ -101,6 +102,39 @@ export const Header: React.FC = () => {
             </div>
           ) : null}
         </div>
+
+        {/* Mobile Menu Button */}
+        {user && (
+          <button
+            className='header__mobile-menu-btn'
+            onClick={() => setShowMobileMenu(!showMobileMenu)}
+            aria-label='Toggle mobile menu'
+          >
+            <span></span>
+            <span></span>
+            <span></span>
+          </button>
+        )}
+
+        {/* Mobile Menu */}
+        {showMobileMenu && user && (
+          <nav className='header__mobile-menu'>
+            <Link
+              to='/'
+              className='header__mobile-link'
+              onClick={() => setShowMobileMenu(false)}
+            >
+              {t('common.home')}
+            </Link>
+            <Link
+              to='/favorites'
+              className='header__mobile-link'
+              onClick={() => setShowMobileMenu(false)}
+            >
+              {t('common.favorites')}
+            </Link>
+          </nav>
+        )}
       </div>
     </header>
   )

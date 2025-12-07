@@ -1,6 +1,7 @@
 import React, { useRef, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { MovieCarousel } from '../../components/MovieCarousel'
+import { SearchBar } from '../../components/SearchBar'
 import { Loading } from '../../components/Loading'
 import { Error } from '../../components/Error'
 import type { Locale } from '../../types'
@@ -102,6 +103,9 @@ export const HomePage: React.FC = () => {
         <div className='home-hero__content'>
           <h1 className='home-hero__title'>{t('common.appName')}</h1>
           <p className='home-hero__subtitle'>{t('common.appTagline')}</p>
+          <div className='home-hero__search'>
+            <SearchBar />
+          </div>
         </div>
       </div>
 

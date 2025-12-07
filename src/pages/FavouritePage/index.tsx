@@ -1,8 +1,8 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
-import { useFavorites } from '../context/FavoritesContext'
-import { MovieCard } from '../components/MovieCard'
-import '../styles/pages/Favorites.css'
+import { useFavorites } from '../../context/FavoritesContext'
+import { MovieCard } from '../../components/MovieCard'
+import './index.css'
 
 export const FavoritesPage: React.FC = () => {
   const { t } = useTranslation()
@@ -28,7 +28,6 @@ export const FavoritesPage: React.FC = () => {
           <div className='favorites-empty'>
             <p className='favorites-empty__icon'>❤️</p>
             <h2 className='favorites-empty__title'>{t('favorites.empty')}</h2>
-            <p className='favorites-empty__text'>{t('favorites.viewAll')}</p>
           </div>
         )}
       </div>

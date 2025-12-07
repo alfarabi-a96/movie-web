@@ -1,7 +1,7 @@
 import React, { useRef, useEffect } from 'react'
-import type { Movie } from '../types'
-import { MovieCard } from './MovieCard'
-import './MovieCarousel.css'
+import type { Movie } from '../../types'
+import { MovieCard } from '../MovieCard'
+import './index.css'
 
 interface MovieCarouselProps {
   movies: Movie[]

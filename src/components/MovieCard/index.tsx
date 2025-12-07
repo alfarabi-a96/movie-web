@@ -1,10 +1,10 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
-import type { Movie } from '../types'
-import { useFavorites } from '../context/FavoritesContext'
-import '../styles/components/MovieCard.css'
-import { IMAGE_BASE_URL } from '../clients/endpoint'
+import type { Movie } from '../../types'
+import { useFavorites } from '../../context/FavoritesContext'
+import { IMAGE_BASE_URL } from '../../clients/endpoint'
+import './index.css'
 
 interface MovieCardProps {
   movie: Movie
