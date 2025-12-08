@@ -10,6 +10,7 @@ import { ThemeProvider } from './context/ThemeContext'
 import { FavoritesProvider } from './context/FavoritesContext'
 import { Header } from './components/Header'
 import { ProtectedRoute } from './components/ProtectedRoute'
+import { useScrollToTop } from './hooks/useScrollToTop'
 import { LoginPage } from './pages/LoginPage'
 import { RegisterPage } from './pages/RegisterPage'
 import { HomePage } from './pages/HomePage'
@@ -20,6 +21,7 @@ import './styles/globals.css'
 import './App.css'
 
 const AppLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+  useScrollToTop()
   return (
     <>
       <Header />
