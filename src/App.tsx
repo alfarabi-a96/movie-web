@@ -1,29 +1,34 @@
-import React from 'react';
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import { AuthProvider, useAuth } from './context/AuthContext';
-import { ThemeProvider } from './context/ThemeContext';
-import { FavoritesProvider } from './context/FavoritesContext';
-import { Header } from './components/Header';
-import { ProtectedRoute } from './components/ProtectedRoute';
-import { LoginPage } from './pages/LoginPage';
-import { RegisterPage } from './pages/RegisterPage';
-import { HomePage } from './pages/HomePage';
-import { SearchPage } from './pages/SearchPage';
-import { MovieDetailsPage } from './pages/MovieDetailsPage';
-import { FavoritesPage } from './pages/FavoritesPage';
-import './styles/globals.css';
-import './App.css';
+import React from 'react'
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate
+} from 'react-router-dom'
+import { AuthProvider } from './context/AuthContext'
+import { ThemeProvider } from './context/ThemeContext'
+import { FavoritesProvider } from './context/FavoritesContext'
+import { Header } from './components/Header'
+import { ProtectedRoute } from './components/ProtectedRoute'
+import { useScrollToTop } from './hooks/useScrollToTop'
+import { LoginPage } from './pages/LoginPage'
+import { RegisterPage } from './pages/RegisterPage'
+import { HomePage } from './pages/HomePage'
+import { SearchPage } from './pages/SearchPage'
+import { MovieDetailsPage } from './pages/MovieDetailPage'
+import { FavoritesPage } from './pages/FavouritePage'
+import './styles/globals.css'
+import './App.css'
 
 const AppLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const { isAuthenticated } = useAuth();
-  
+  useScrollToTop()
   return (
     <>
-      {isAuthenticated && <Header />}
+      <Header />
       {children}
     </>
-  );
-};
+  )
+}
 
 function App() {
   return (
@@ -34,12 +39,12 @@ function App() {
             <AppLayout>
               <Routes>
                 {/* Auth Routes */}
-                <Route path="/login" element={<LoginPage />} />
-                <Route path="/register" element={<RegisterPage />} />
+                <Route path='/login' element={<LoginPage />} />
+                <Route path='/register' element={<RegisterPage />} />
 
                 {/* Protected Routes */}
                 <Route
-                  path="/"
+                  path='/home'
                   element={
                     <ProtectedRoute>
                       <HomePage />
@@ -47,7 +52,7 @@ function App() {
                   }
                 />
                 <Route
-                  path="/search"
+                  path='/search'
                   element={
                     <ProtectedRoute>
                       <SearchPage />
@@ -55,7 +60,7 @@ function App() {
                   }
                 />
                 <Route
-                  path="/movie/:id"
+                  path='/movie/:id'
                   element={
                     <ProtectedRoute>
                       <MovieDetailsPage />
@@ -63,7 +68,7 @@ function App() {
                   }
                 />
                 <Route
-                  path="/favorites"
+                  path='/favorites'
                   element={
                     <ProtectedRoute>
                       <FavoritesPage />
@@ -72,14 +77,15 @@ function App() {
                 />
 
                 {/* Redirect unknown routes */}
-                <Route path="*" element={<Navigate to="/" replace />} />
+                <Route path='/' element={<Navigate to='/home' replace />} />
+                <Route path='*' element={<Navigate to='/' replace />} />
               </Routes>
             </AppLayout>
           </Router>
         </FavoritesProvider>
       </AuthProvider>
     </ThemeProvider>
-  );
+  )
 }
 
-export default App;
+export default App

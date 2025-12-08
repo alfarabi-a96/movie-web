@@ -1,4 +1,4 @@
-# MovieFlix - Complete Setup and Testing Guide
+# Alpha Movie - Complete Setup and Testing Guide
 
 ## ✅ Project Status: COMPLETE
 
@@ -9,6 +9,7 @@ All features have been successfully implemented and the application is ready for
 ### 1. Development Server
 
 The development server is currently running on:
+
 ```
 http://localhost:5174/
 ```
@@ -54,14 +55,16 @@ npm run preview
 ### 2. Login Flow
 
 **Email & Password Login**:
+
 1. **Visit Login Page**: Go to `/login`
 2. **Enter Credentials**: Use the registered email and password
 3. **Submit**: Click "Login" button
 4. **Success**: Redirected to home page with header visible
 
 **Social Login (Mock)**:
+
 1. **Visit Login Page**: Go to `/login`
-2. **Click Social Button**: 
+2. **Click Social Button**:
    - "Login with Facebook" - Creates mock Facebook account
    - "Login with Google" - Creates mock Google account
    - "Login with Apple" - Creates mock Apple account
@@ -70,7 +73,7 @@ npm run preview
 ### 3. Home Page Testing
 
 1. **Verify Header**: Should show app name, navigation, theme toggle, language selector
-2. **Browse Movies**: 
+2. **Browse Movies**:
    - See "Popular Movies" section
    - See "Now Playing" section
    - See "Upcoming" section
@@ -144,22 +147,26 @@ npm run preview
 ### 10. Responsive Design Testing
 
 **Desktop (1024px+)**:
+
 - Full header with logo text visible
 - 4-column movie grid
 - Detailed movie layouts optimized for large screens
 
 **Tablet (768px - 1024px)**:
+
 - Collapsible navigation
 - 3-column movie grid
 - Adjusted spacing
 
 **Mobile (480px - 768px)**:
+
 - Hamburger menu consideration
 - 2-column movie grid
 - Touch-friendly button sizes
 - Stack layouts vertically
 
 **Small Mobile (<480px)**:
+
 - Single column or 2-column grid
 - Large touch targets
 - Simplified layouts
@@ -167,6 +174,7 @@ npm run preview
 ## 🔑 Test Accounts
 
 ### Pre-registered Test Account
+
 **Email**: test@example.com  
 **Password**: password123
 
@@ -175,6 +183,7 @@ npm run preview
 ## 📊 Test Data
 
 The application includes 10 mock movies:
+
 1. The Shawshank Redemption
 2. The Dark Knight
 3. Inception
@@ -215,13 +224,16 @@ Try searching for any of these or their partial names.
 ## 🐛 Troubleshooting
 
 ### Port Already in Use
+
 If port 5173 is in use, Vite will automatically try 5174, 5175, etc.
+
 ```bash
 # Or specify a different port
 npm run dev -- --port 3000
 ```
 
 ### Dependencies Not Installed
+
 ```bash
 # Clear node_modules and reinstall
 rm -r node_modules package-lock.json
@@ -229,17 +241,20 @@ npm install
 ```
 
 ### TypeScript Errors
+
 ```bash
 # Rebuild TypeScript
 npm run build
 ```
 
 ### CSS Not Loading
+
 - Check that CSS files are imported in components
 - Verify CSS file paths are correct
 - Clear browser cache
 
 ### localStorage Issues
+
 - Open DevTools → Application → Local Storage
 - Verify data is being stored
 - Clear if needed: `localStorage.clear()`
@@ -275,16 +290,19 @@ npm run build
 ## 🎓 Learning Resources
 
 ### Code Quality
+
 - Check `src/components/` for component best practices
 - Review `src/hooks/useInput.ts` for custom hook patterns
 - Study `src/context/` for Context API usage
 
 ### Styling
+
 - Review `src/styles/globals.css` for CSS variable system
 - Check responsive design in component CSS files
 - See theme implementation in `ThemeContext.tsx`
 
 ### TypeScript
+
 - Review `src/types/index.ts` for type definitions
 - Check type usage in all components
 - See interface implementations in context files
@@ -292,6 +310,7 @@ npm run build
 ## 🚀 Next Steps
 
 ### For Development
+
 1. Familiarize yourself with the codebase structure
 2. Try modifying styles in CSS files
 3. Add new translations to JSON files
@@ -299,6 +318,7 @@ npm run build
 5. Add new pages following the existing pattern
 
 ### For Production
+
 1. Replace mock movie service with real API
 2. Implement Firebase for authentication
 3. Add error tracking (Sentry)
@@ -309,6 +329,7 @@ npm run build
 ## 📞 Support
 
 For issues or questions:
+
 1. Check the `ARCHITECTURE.md` file for system design
 2. Review relevant component source code
 3. Check browser console for errors
@@ -316,4 +337,4 @@ For issues or questions:
 
 ## ✨ Enjoy!
 
-The MovieFlix application is now ready to use. Register, login, explore movies, and enjoy the full feature set!
+The Alpha Movie application is now ready to use. Register, login, explore movies, and enjoy the full feature set!

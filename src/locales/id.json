@@ -1,6 +1,6 @@
 {
   "common": {
-    "appName": "MovieFlix",
+    "appName": "Alpha Movie",
     "appTagline": "Pengalaman Menonton Film Anda",
     "search": "Cari",
     "login": "Masuk",
@@ -29,10 +29,10 @@
     "required": "Kolom ini wajib diisi"
   },
   "auth": {
-    "loginTitle": "Selamat Datang Kembali",
+    "loginTitle": "Selamat Datang",
     "registerTitle": "Buat Akun Anda",
-    "loginDescription": "Masuk ke akun MovieFlix Anda",
-    "registerDescription": "Bergabunglah dengan MovieFlix untuk mulai menjelajahi film",
+    "loginDescription": "Masuk ke akun Alpha Movie Anda",
+    "registerDescription": "Bergabunglah dengan Alpha Movie untuk mulai menjelajahi film",
     "emailLabel": "Alamat Email",
     "passwordLabel": "Kata Sandi",
     "confirmPassword": "Konfirmasi Kata Sandi",
@@ -97,11 +97,13 @@
     "tryDifferentKeyword": "Coba kata kunci yang berbeda"
   },
   "errors": {
+    "loginError": "Nama pengguna dan/atau kata sandi Anda tidak benar. Silakan coba lagi",
     "loadingError": "Kesalahan memuat film",
     "networkError": "Kesalahan jaringan. Periksa koneksi Anda",
     "notFound": "Film tidak ditemukan",
     "unauthorized": "Silakan masuk untuk mengakses halaman ini",
     "serverError": "Kesalahan server. Silakan coba lagi nanti",
-    "tryAgain": "Coba Lagi"
+    "tryAgain": "Coba Lagi",
+    "popupClosedByUser": "Proses masuk dibatalkan. Silakan coba lagi."
   }
 }
