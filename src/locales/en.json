@@ -26,7 +26,8 @@
     "back": "Back",
     "close": "Close",
     "submit": "Submit",
-    "required": "This field is required"
+    "required": "This field is required",
+    "searchMovies": "Search movies..."
   },
   "auth": {
     "loginTitle": "Welcome",

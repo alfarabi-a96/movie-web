@@ -1,6 +1,6 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
-import { useFavorites } from '../../context/FavoritesContext'
+import { useFavorites } from '../../hooks/useFavorites'
 import { MovieCard } from '../../components/MovieCard'
 import './index.css'
 

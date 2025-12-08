@@ -1,10 +1,10 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useEffect, useRef } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { MovieCard } from '../../components/MovieCard'
 import { Loading } from '../../components/Loading'
 import { Error } from '../../components/Error'
-import { Input } from '../../components/Input'
+import { SearchBar } from '../../components/SearchBar'
 import { useSearchMoviesInfiniteQuery } from '../../queries'
 import type { Locale, PaginatedMoviesResponse } from '../../types'
 import './index.css'
@@ -12,9 +12,8 @@ import './index.css'
 export const SearchPage: React.FC = () => {
   const { t } = useTranslation()
   const language = localStorage.getItem('language') ?? 'en'
-  const [searchParams, setSearchParams] = useSearchParams()
+  const [searchParams] = useSearchParams()
   const query = searchParams.get('q') || ''
-  const [searchInput, setSearchInput] = useState(query)
   const observerTarget = useRef<HTMLDivElement>(null)
 
   const {
@@ -44,37 +43,24 @@ export const SearchPage: React.FC = () => {
       }
     )
 
-    if (observerTarget.current) {
-      observer.observe(observerTarget.current)
+    const currentTarget = observerTarget.current
+    if (currentTarget) {
+      observer.observe(currentTarget)
     }
 
     return () => {
-      if (observerTarget.current) {
-        observer.unobserve(observerTarget.current)
+      if (currentTarget) {
+        observer.unobserve(currentTarget)
       }
     }
   }, [hasNextPage, isFetchingNextPage, fetchNextPage])
-  const handleSearch = (e: React.FormEvent) => {
-    e.preventDefault()
-    if (searchInput.trim()) {
-      setSearchParams({ q: searchInput.trim() })
-    }
-  }
 
   return (
     <div className='search-page'>
       <div className='search-hero'>
         <div className='container'>
           <h1 className='search-hero__title'>{t('search.searchTitle')}</h1>
-          <form onSubmit={handleSearch} className='search-form'>
-            <Input
-              type='text'
-              placeholder={t('search.placeholder')}
-              value={searchInput}
-              onChange={(e) => setSearchInput(e.target.value)}
-              className='search-form__input'
-            />
-          </form>
+          <SearchBar />
         </div>
       </div>
 

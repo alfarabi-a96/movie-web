@@ -5,7 +5,7 @@ import react from '@vitejs/plugin-react'
 export default defineConfig({
   plugins: [react()],
   build: {
-    // Code splitting
+    // Code splitting strategy
     rollupOptions: {
       output: {
         manualChunks: {
@@ -15,9 +15,16 @@ export default defineConfig({
           'i18n-vendor': ['i18next', 'react-i18next']
         }
       }
-    }
+    },
+    // Optimize chunk size and provide warnings
+    chunkSizeWarningLimit: 1000,
+    // Enable source maps only in non-production (optional for debugging)
+    sourcemap: false,
+    // Minify with esbuild (default and faster than terser)
+    minify: 'esbuild'
   },
-  // Optimize dependencies
+  // Only include dependencies that don't have proper ESM exports
+  // Vite handles most deps automatically with smart heuristics
   optimizeDeps: {
     include: [
       'react',
@@ -25,9 +32,9 @@ export default defineConfig({
       'react-router-dom',
       '@tanstack/react-query',
       'i18next',
-      'react-i18next',
-      'firebase/app',
-      'firebase/auth'
-    ]
+      'react-i18next'
+    ],
+    // Exclude Firebase if it has issues with pre-bundling
+    exclude: ['firebase/app', 'firebase/auth']
   }
 })

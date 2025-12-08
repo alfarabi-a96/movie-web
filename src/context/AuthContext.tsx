@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState } from 'react'
+import React, { useState } from 'react'
 import type { ReactNode } from 'react'
 import type {
   User,
@@ -12,8 +12,7 @@ import {
   signUpUser,
   updateUser
 } from '../api/auth'
-
-const AuthContext = createContext<AuthContextType | undefined>(undefined)
+import { AuthContext } from './index'
 
 interface AuthProviderProps {
   children: ReactNode
@@ -54,6 +53,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
   const logout = () => {
     setUser(null)
+    localStorage.removeItem('favorites')
     localStorage.removeItem('currentUser')
   }
 
@@ -66,12 +66,4 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   }
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>
-}
-
-export const useAuth = (): AuthContextType => {
-  const context = useContext(AuthContext)
-  if (!context) {
-    throw new Error('useAuth must be used within AuthProvider')
-  }
-  return context
 }

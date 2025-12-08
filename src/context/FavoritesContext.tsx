@@ -1,10 +1,7 @@
-import React, { createContext, useContext, useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import type { ReactNode } from 'react'
 import type { Movie, MovieListItem, FavoritesContextType } from '../types'
-
-const FavoritesContext = createContext<FavoritesContextType | undefined>(
-  undefined
-)
+import { FavoritesContext } from './index'
 
 interface FavoritesProviderProps {
   children: ReactNode
@@ -51,12 +48,4 @@ export const FavoritesProvider: React.FC<FavoritesProviderProps> = ({
       {children}
     </FavoritesContext.Provider>
   )
-}
-
-export const useFavorites = (): FavoritesContextType => {
-  const context = useContext(FavoritesContext)
-  if (!context) {
-    throw new Error('useFavorites must be used within FavoritesProvider')
-  }
-  return context
 }

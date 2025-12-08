@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState } from 'react'
+import React, { useRef, useEffect, useState, useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 import { MovieCarousel } from '../../components/MovieCarousel'
 import { SearchBar } from '../../components/SearchBar'
@@ -43,27 +43,30 @@ export const HomePage: React.FC = () => {
   const upcomingRef = useRef<HTMLDivElement>(null)
   const topRatedRef = useRef<HTMLDivElement>(null)
 
-  // Sections configuration
-  const lazySections = [
-    {
-      ref: nowPlayingRef,
-      setShouldFetch: setShouldFetchNowPlaying,
-      query: nowPlayingQuery,
-      title: t('movies.nowPlaying')
-    },
-    {
-      ref: upcomingRef,
-      setShouldFetch: setShouldFetchUpcoming,
-      query: upcomingQuery,
-      title: t('movies.upcoming')
-    },
-    {
-      ref: topRatedRef,
-      setShouldFetch: setShouldFetchTopRated,
-      query: topRatedQuery,
-      title: t('movies.topRated')
-    }
-  ]
+  // Sections configuration with useMemo to prevent dependency changes
+  const lazySections = useMemo(
+    () => [
+      {
+        ref: nowPlayingRef,
+        setShouldFetch: setShouldFetchNowPlaying,
+        query: nowPlayingQuery,
+        title: t('movies.nowPlaying')
+      },
+      {
+        ref: upcomingRef,
+        setShouldFetch: setShouldFetchUpcoming,
+        query: upcomingQuery,
+        title: t('movies.upcoming')
+      },
+      {
+        ref: topRatedRef,
+        setShouldFetch: setShouldFetchTopRated,
+        query: topRatedQuery,
+        title: t('movies.topRated')
+      }
+    ],
+    [nowPlayingQuery, upcomingQuery, topRatedQuery, t]
+  )
 
   // Intersection Observer untuk lazy load semua sections
   useEffect(() => {
@@ -91,7 +94,7 @@ export const HomePage: React.FC = () => {
     })
 
     return () => observer.disconnect()
-  }, [])
+  }, [lazySections])
 
   // Flatten popular movies
   const allPopularMovies =

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useId } from 'react'
 import './index.css'
 
 interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
@@ -18,7 +18,8 @@ export const Input: React.FC<InputProps> = ({
   className,
   ...props
 }) => {
-  const inputId = id || `input-${Math.random()}`
+  const generatedId = useId()
+  const inputId = id || generatedId
 
   return (
     <div

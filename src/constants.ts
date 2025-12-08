@@ -1,4 +1,4 @@
-import type { LocaleConfig } from './types'
+import type { Locale } from './types'
 
 export const INVALID_CREDENTIAL = 'INVALID_CREDENTIAL'
 export const SERVER_ERROR = 'SERVER_ERROR'
@@ -10,13 +10,7 @@ export const POPUP_CLOSED_BY_USER = 'POPUP_CLOSED_BY_USER'
 
 export const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 
-export const LOCALES: LocaleConfig = {
-  language: {
-    en: 'en-US',
-    id: 'id-ID'
-  },
-  region: {
-    en: 'US',
-    id: 'ID'
-  }
+export const LOCALE: Record<Locale, string> = {
+  en: 'en-US',
+  id: 'id-ID'
 }

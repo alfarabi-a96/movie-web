@@ -190,7 +190,3 @@ export interface FavoritesContextType {
   isFavorite: (movieId: number) => boolean
 }
 
-export interface LocaleConfig {
-  language: Record<Locale, string>
-  region: Record<Locale, string>
-}
