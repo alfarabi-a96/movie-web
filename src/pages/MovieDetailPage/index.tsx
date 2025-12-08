@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
-import { useFavorites } from '../../context/FavoritesContext'
+import { useFavorites } from '../../hooks/useFavorites'
 import { Button } from '../../components/Button'
 import { Loading } from '../../components/Loading'
 import { Error } from '../../components/Error'

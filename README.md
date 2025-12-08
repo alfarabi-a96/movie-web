@@ -1,73 +1,155 @@
-# React + TypeScript + Vite
+# Movie Web
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern web application for discovering and managing movies built with React, TypeScript, and Vite. Features real-time movie data from TMDB API, user authentication with Firebase, and multi-language support (English & Indonesian).
 
-Currently, two official plugins are available:
+## Tech Stack
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **Frontend Framework**: React 19 + TypeScript
+- **Build Tool**: Vite
+- **Styling**: CSS3
+- **State Management**: 
+  - React Context API (Auth, Theme, Favorites)
+  - TanStack React Query (Server State)
+- **Authentication**: Firebase Auth
+- **Database**: Firestore
+- **API**: TMDB (The Movie Database)
+- **Internationalization**: i18next
+- **Routing**: React Router v7
+- **Code Quality**: ESLint, Prettier
+- **HTTP Client**: Native Fetch API
 
-## React Compiler
+## Installation
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### Prerequisites
+- Node.js 18 or higher
+- npm or yarn
+- NVM (Node Version Manager) - **recommended** for managing Node.js versions
 
-## Expanding the ESLint configuration
+### Node Version Management (NVM)
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+This project uses Node.js 18+. If you have NVM installed, you can automatically use the correct Node version:
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname
-      }
-      // other options...
-    }
-  }
-])
+```bash
+nvm use
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+If you need to install NVM, visit: https://github.com/nvm-sh/nvm#installing-and-updating
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+**Don't have NVM?** You can still proceed without it, just make sure you have Node.js 18 or higher installed on your system.
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname
-      }
-      // other options...
-    }
-  }
-])
+### Steps
+
+1. **Clone the repository**
+   ```bash
+   git clone <repository-url>
+   cd movie-web
+   ```
+
+2. **Use correct Node version (if using NVM)**
+   ```bash
+   nvm use
+   ```
+
+3. **Install dependencies**
+   ```bash
+   npm install
+   ```
+
+4. **Setup environment variables**
+   Create a `.env` file in the root directory:
+   ```
+   VITE_FIREBASE_API_KEY=your_firebase_api_key
+   VITE_FIREBASE_AUTH_DOMAIN=your_firebase_auth_domain
+   VITE_FIREBASE_PROJECT_ID=your_firebase_project_id
+   VITE_FIREBASE_STORAGE_BUCKET=your_firebase_storage_bucket
+   VITE_FIREBASE_MESSAGING_SENDER_ID=your_firebase_messaging_sender_id
+   VITE_FIREBASE_APP_ID=your_firebase_app_id
+   VITE_TMDB_API_KEY=your_tmdb_api_key
+   ```
+
+## Running the Project
+
+### Development Mode
+```bash
+npm run dev
 ```
+The application will run at `http://localhost:5173`
+
+### Build for Production
+```bash
+npm run build
+```
+
+### Preview Production Build
+```bash
+npm run preview
+```
+
+### Lint Code
+```bash
+npm run lint
+```
+
+### Format Code
+```bash
+npm run format
+```
+
+## Architecture Overview
+
+### Authentication Flow
+- User authentication via Firebase (email/password and Google OAuth)
+- Protected routes using `ProtectedRoute` component
+- User state managed in `AuthContext`
+- Session persistence with Firebase
+
+### State Management Strategy
+- **Local/UI State**: React Context (Auth, Theme, Favorites)
+- **Server State**: React Query (Movie data, caching, synchronization)
+- **Persistent State**: Firestore (User favorites, preferences)
+
+### Component Architecture
+- **Page Components**: Full-page layouts in `pages/` folder
+- **Reusable Components**: Shared UI components in `components/` folder
+- **Custom Hooks**: Business logic in `hooks/` and `queries/` folders
+- **Providers**: Context providers for global state in `context/` folder
+
+### API Integration
+- **TMDB API**: Movies data (popular, upcoming, top-rated, search)
+- **Firebase**: User authentication and Firestore database
+- **Fetch API**: Native JavaScript for HTTP requests
+- **React Query**: Server state management and caching
+
+### Internationalization (i18n)
+- Support for English and Indonesian languages
+- Language preference stored in browser
+- Translation files in `locales/` folder
+- Easy to add more languages
+
+### Styling Approach
+- **Component Styles**: CSS modules for scoped styling
+- **Global Styles**: Global CSS in `styles/globals.css`
+- **Responsive Design**: Mobile-first CSS approach
+
+## Features
+
+- 🎬 Browse popular, upcoming, and top-rated movies
+- 🔍 Search movies by title
+- ❤️ Add/remove movies from favorites
+- 👤 User authentication (Email/Password & Google OAuth)
+- 🌙 Light/Dark theme toggle
+- 🌍 Multi-language support (English & Indonesian)
+- 📱 Fully responsive design
+- ⚡ High performance with Vite
+- 🎯 Type-safe with TypeScript
+
+## Browser Support
+
+- Chrome (latest)
+- Firefox (latest)
+- Safari (latest)
+- Edge (latest)
+
+## Getting Help
+
+For issues and questions, please open an issue in the repository.

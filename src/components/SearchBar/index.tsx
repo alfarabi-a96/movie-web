@@ -21,7 +21,7 @@ export const SearchBar: React.FC = () => {
       <input
         type='text'
         className='search-bar__input'
-        placeholder={t('common.search') || 'Search movies...'}
+        placeholder={t('common.searchMovies')}
         value={searchInput}
         onChange={(e) => setSearchInput(e.target.value)}
         aria-label='Search movies'

@@ -2,7 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import type { Movie, MovieListItem } from '../../types'
-import { useFavorites } from '../../context/FavoritesContext'
+import { useFavorites } from '../../hooks/useFavorites'
 import { IMAGE_BASE_URL } from '../../clients/endpoint'
 import './index.css'
 

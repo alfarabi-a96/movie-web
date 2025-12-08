@@ -26,7 +26,8 @@
     "back": "Kembali",
     "close": "Tutup",
     "submit": "Kirim",
-    "required": "Kolom ini wajib diisi"
+    "required": "Kolom ini wajib diisi",
+    "searchMovies": "Cari film…"
   },
   "auth": {
     "loginTitle": "Selamat Datang",
