@@ -1,10 +1,14 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
+import Icon from '../Icon'
+import { useTheme } from '../../hooks/useTheme'
 import './index.css'
 
 export const SearchBar: React.FC = () => {
   const { t } = useTranslation()
+  const { theme } = useTheme()
+
   const navigate = useNavigate()
   const [searchInput, setSearchInput] = useState('')
 
@@ -27,7 +31,12 @@ export const SearchBar: React.FC = () => {
         aria-label='Search movies'
       />
       <button type='submit' className='search-bar__btn' aria-label='Search'>
-        🔍
+        <Icon
+          name='search'
+          color={theme === 'light' ? 'white' : 'var(--bg-secondary)'}
+          size='20'
+          strokeColor={theme === 'light' ? 'black' : 'white'}
+        />
       </button>
     </form>
   )

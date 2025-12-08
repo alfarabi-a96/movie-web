@@ -25,10 +25,7 @@ export const searchMovies = async (
   })
 }
 
-export const fetchPopularMovies = async (
-  language: string,
-  page: number,
-) => {
+export const fetchPopularMovies = async (language: string, page: number) => {
   return apiFetch(`/movie/popular`, {
     method: 'GET',
     params: {
@@ -38,10 +35,7 @@ export const fetchPopularMovies = async (
   })
 }
 
-export const fetchNowPlayingMovies = async (
-  language: string,
-  page: number,
-) => {
+export const fetchNowPlayingMovies = async (language: string, page: number) => {
   return apiFetch(`/movie/now_playing`, {
     method: 'GET',
     params: {
@@ -51,10 +45,7 @@ export const fetchNowPlayingMovies = async (
   })
 }
 
-export const fetchUpcomingMovies = async (
-  language: string,
-  page: number,
-) => {
+export const fetchUpcomingMovies = async (language: string, page: number) => {
   return apiFetch(`/movie/upcoming`, {
     method: 'GET',
     params: {
@@ -64,10 +55,7 @@ export const fetchUpcomingMovies = async (
   })
 }
 
-export const fetchTopRatedMovies = async (
-  language: string,
-  page: number,
-) => {
+export const fetchTopRatedMovies = async (language: string, page: number) => {
   return apiFetch(`/movie/top_rated`, {
     method: 'GET',
     params: {

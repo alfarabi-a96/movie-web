@@ -46,16 +46,6 @@
   box-shadow: var(--shadow-lg);
 }
 
-.btn--success {
-  background-color: var(--color-success);
-  color: white;
-}
-
-.btn--success:hover:not(:disabled) {
-  background-color: #059669;
-  box-shadow: var(--shadow-lg);
-}
-
 /* Sizes */
 .btn--sm {
   padding: 0.5rem 1rem;

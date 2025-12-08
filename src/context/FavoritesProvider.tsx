@@ -3,21 +3,46 @@ import type { ReactNode } from 'react'
 import type { Movie, MovieListItem, FavoritesContextType } from '../types'
 import { FavoritesContext } from './index'
 
+/**
+ * Props for FavoritesProvider component
+ */
 interface FavoritesProviderProps {
   children: ReactNode
+}
+
+const FAVORITES_KEY = 'favorites'
+
+const getStoredFavorites = (): Movie[] => {
+  const stored = localStorage.getItem(FAVORITES_KEY)
+  return stored ? JSON.parse(stored) : []
 }
 
 export const FavoritesProvider: React.FC<FavoritesProviderProps> = ({
   children
 }) => {
-  const [favorites, setFavorites] = useState<Movie[]>(() => {
-    const stored = localStorage.getItem('favorites')
-    return stored ? JSON.parse(stored) : []
-  })
+  const [favorites, setFavorites] = useState<Movie[]>(getStoredFavorites)
 
+  // Persist favorites to localStorage
   useEffect(() => {
-    localStorage.setItem('favorites', JSON.stringify(favorites))
+    localStorage.setItem(FAVORITES_KEY, JSON.stringify(favorites))
   }, [favorites])
+
+  // Sync with other tabs and handle logout
+  useEffect(() => {
+    const handleStorageChange = (e: StorageEvent) => {
+      if (e.key === FAVORITES_KEY) {
+        setFavorites(e.newValue ? JSON.parse(e.newValue) : [])
+      }
+    }
+
+    window.addEventListener('storage', handleStorageChange)
+    window.addEventListener('userLogout', () => setFavorites([]))
+
+    return () => {
+      window.removeEventListener('storage', handleStorageChange)
+      window.removeEventListener('userLogout', () => setFavorites([]))
+    }
+  }, [])
 
   const addFavorite = (movie: Movie | MovieListItem) => {
     setFavorites((prev) => {

@@ -1,4 +1,8 @@
-import { INVALID_CREDENTIAL, POPUP_CLOSED_BY_USER } from '../constants'
+import {
+  INVALID_CREDENTIAL,
+  POPUP_CLOSED_BY_USER,
+  SERVER_ERROR
+} from '../constants'
 
 export const errorMap = (error: unknown): Error => {
   if (
@@ -12,6 +16,5 @@ export const errorMap = (error: unknown): Error => {
   ) {
     return new Error(POPUP_CLOSED_BY_USER)
   }
-  // Return the original error or create a new Error object
-  return error instanceof Error ? error : new Error(String(error))
+  return new Error(SERVER_ERROR)
 }

@@ -32,11 +32,7 @@ const useMoviesInfiniteQuery = (
   }
 
   const queryFn = ({ pageParam }: { pageParam: unknown }) =>
-    fetchFn(
-      LOCALE[language],
-      pageParam as number,
-      query
-    )
+    fetchFn(LOCALE[language], pageParam as number, query)
 
   return useAppInfiniteQuery(
     fullQueryKey,

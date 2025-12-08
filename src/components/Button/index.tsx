@@ -1,13 +1,16 @@
 import React from 'react'
 import './index.css'
+
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: 'primary' | 'secondary' | 'danger' | 'success'
+  id: string
+  variant?: 'primary' | 'secondary' | 'danger'
   size?: 'sm' | 'md' | 'lg'
   isLoading?: boolean
   fullWidth?: boolean
 }
 
 export const Button: React.FC<ButtonProps> = ({
+  id,
   variant = 'primary',
   size = 'md',
   isLoading = false,
@@ -30,7 +33,13 @@ export const Button: React.FC<ButtonProps> = ({
     .join(' ')
 
   return (
-    <button className={classNames} disabled={disabled || isLoading} {...props}>
+    <button
+      id={id}
+      data-testid={id}
+      className={classNames}
+      disabled={disabled || isLoading}
+      {...props}
+    >
       {isLoading ? 'Loading...' : children}
     </button>
   )

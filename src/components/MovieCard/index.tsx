@@ -5,6 +5,7 @@ import type { Movie, MovieListItem } from '../../types'
 import { useFavorites } from '../../hooks/useFavorites'
 import { IMAGE_BASE_URL } from '../../clients/endpoint'
 import './index.css'
+import Icon from '../Icon'
 
 interface MovieCardProps {
   movie: Movie | MovieListItem
@@ -48,7 +49,7 @@ export const MovieCard: React.FC<MovieCardProps> = ({ movie }) => {
               : t('movies.addToFavorites')
           }
         >
-          ♥
+          <Icon name='love' />
         </button>
         <div className='movie-card__rating'>
           <span className='movie-card__rating-value'>

@@ -32,7 +32,7 @@ export const MovieCarousel: React.FC<MovieCarouselProps> = ({
     }
   }
 
-  // Handle infinite scroll
+  // Infinite scroll: Load more movies when scrolled 80% to the right
   useEffect(() => {
     const container = scrollContainerRef.current
     if (!container) return

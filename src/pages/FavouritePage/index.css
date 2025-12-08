@@ -29,17 +29,10 @@
 
 .favorites-empty {
   text-align: center;
-  padding: 4rem 1rem;
-  min-height: 400px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-}
-
-.favorites-empty__icon {
-  font-size: 4rem;
-  margin: 0 0 1rem 0;
 }
 
 .favorites-empty__title {

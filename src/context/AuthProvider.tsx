@@ -14,10 +14,27 @@ import {
 } from '../api/auth'
 import { AuthContext } from './index'
 
+/**
+ * Props for AuthProvider component
+ */
 interface AuthProviderProps {
   children: ReactNode
 }
 
+/**
+ * AuthProvider Component - Manages application-wide authentication state
+ *
+ * Features:
+ * - Email/password login and registration
+ * - Google OAuth authentication
+ * - User profile updates
+ * - User logout
+ * - Persists user data to localStorage
+ * - Provides AuthContext to all child components
+ *
+ * @param props - AuthProviderProps containing child components
+ * @returns Provider component wrapping auth context
+ */
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const [user, setUser] = useState<User | null>(() => {
     const storedUser = localStorage.getItem('currentUser')
@@ -53,8 +70,9 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
   const logout = () => {
     setUser(null)
-    localStorage.removeItem('favorites')
-    localStorage.removeItem('currentUser')
+    localStorage.clear()
+    // Dispatch custom event to notify other providers about logout
+    window.dispatchEvent(new CustomEvent('userLogout'))
   }
 
   const value: AuthContextType = {

@@ -241,6 +241,7 @@ export const MovieDetailsPage: React.FC = () => {
             {/* Buttons */}
             <div className='movie-details__actions'>
               <Button
+                id='favorite-button'
                 variant={favorite ? 'danger' : 'primary'}
                 onClick={handleFavoriteToggle}
                 fullWidth
@@ -249,7 +250,11 @@ export const MovieDetailsPage: React.FC = () => {
                   ? t('movies.removeFromFavorites')
                   : t('movies.addToFavorites')}
               </Button>
-              <Button variant='secondary' onClick={() => navigate(-1)}>
+              <Button
+                id='back-button'
+                variant='secondary'
+                onClick={() => navigate(-1)}
+              >
                 {t('common.back')}
               </Button>
             </div>

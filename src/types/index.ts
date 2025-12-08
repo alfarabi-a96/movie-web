@@ -189,4 +189,3 @@ export interface FavoritesContextType {
   removeFavorite: (movieId: number) => void
   isFavorite: (movieId: number) => boolean
 }
-

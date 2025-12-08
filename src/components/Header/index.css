@@ -34,7 +34,7 @@
 }
 
 .header__logo-icon {
-  font-size: 1.5rem;
+  transform: rotate(345deg);
 }
 
 .header__logo-text {

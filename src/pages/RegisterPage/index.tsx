@@ -2,7 +2,7 @@ import React, { useMemo, useState } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { useAuth } from '../../hooks/useAuth'
-import { useForm } from '../../hooks/useInput'
+import { useInput } from '../../hooks/useInput'
 import { Input } from '../../components/Input'
 import { Button } from '../../components/Button'
 import {
@@ -22,7 +22,7 @@ export const RegisterPage: React.FC = () => {
   const [error, setError] = useState('')
   const [isLoading, setIsLoading] = useState(false)
 
-  const { values, errors, bind, validate, reset } = useForm({
+  const { values, errors, bind, validate, reset } = useInput({
     name: '',
     email: '',
     password: '',
@@ -105,7 +105,6 @@ export const RegisterPage: React.FC = () => {
               {...bind('name')}
               error={errorMessage[errors.name as keyof typeof errorMessage]}
               disabled={isLoading}
-              required
             />
 
             <Input
@@ -140,6 +139,7 @@ export const RegisterPage: React.FC = () => {
             />
 
             <Button
+              id='register-button'
               type='submit'
               variant='primary'
               fullWidth

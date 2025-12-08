@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next'
 import { useAuth } from '../../hooks/useAuth'
 import { useTheme } from '../../hooks/useTheme'
 import './index.css'
+import Icon from '../Icon'
 
 export const Header: React.FC = () => {
   const { t, i18n } = useTranslation()
@@ -27,7 +28,7 @@ export const Header: React.FC = () => {
     <header className='header'>
       <div className='header__container'>
         <Link to='/' className='header__logo'>
-          <span className='header__logo-icon'>🎬</span>
+          <Icon name='movie' size='24' className='header__logo-icon' />
           <span className='header__logo-text'>{t('common.appName')}</span>
         </Link>
 
@@ -72,7 +73,11 @@ export const Header: React.FC = () => {
             }
             aria-label='Toggle theme'
           >
-            {theme === 'light' ? '🌙' : '☀️'}
+            {theme === 'light' ? (
+              <Icon name='moon' color='black' size='40' />
+            ) : (
+              <Icon name='sun' size='40' color='yellow' />
+            )}
           </button>
 
           {/* User Menu */}

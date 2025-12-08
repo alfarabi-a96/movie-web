@@ -1,60 +1,6 @@
 import { useState, useCallback } from 'react'
 
 interface UseInputReturn {
-  value: string
-  setValue: (value: string) => void
-  bind: {
-    value: string
-    onChange: (e: React.ChangeEvent<HTMLInputElement>) => void
-  }
-  reset: () => void
-  error: string
-  setError: (error: string) => void
-  validate: (validator: (val: string) => string | null) => boolean
-}
-
-export const useInput = (initialValue: string = ''): UseInputReturn => {
-  const [value, setValue] = useState(initialValue)
-  const [error, setError] = useState('')
-
-  const bind = {
-    value,
-    onChange: (e: React.ChangeEvent<HTMLInputElement>) => {
-      setValue(e.target.value)
-      setError('')
-    }
-  }
-
-  const reset = useCallback(() => {
-    setValue(initialValue)
-    setError('')
-  }, [initialValue])
-
-  const validate = useCallback(
-    (validator: (val: string) => string | null): boolean => {
-      const validationError = validator(value)
-      if (validationError) {
-        setError(validationError)
-        return false
-      }
-      setError('')
-      return true
-    },
-    [value]
-  )
-
-  return {
-    value,
-    setValue,
-    bind,
-    reset,
-    error,
-    setError,
-    validate
-  }
-}
-
-interface UseFormReturn {
   values: Record<string, string>
   errors: Record<string, string>
   setFieldValue: (field: string, value: string) => void
@@ -69,9 +15,9 @@ interface UseFormReturn {
   ) => boolean
 }
 
-export const useForm = (
+export const useInput = (
   initialValues: Record<string, string>
-): UseFormReturn => {
+): UseInputReturn => {
   const [values, setValues] = useState(initialValues)
   const [errors, setErrors] = useState<Record<string, string>>({})
 

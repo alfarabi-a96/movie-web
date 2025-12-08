@@ -20,7 +20,7 @@ export const HomePage: React.FC = () => {
   // Popular movies - fetch immediately
   const popularQuery = usePopularMoviesInfiniteQuery(language as Locale)
 
-  // Lazy loaded sections
+  // Lazy loaded sections - only fetch when section becomes visible
   const [shouldFetchNowPlaying, setShouldFetchNowPlaying] = useState(false)
   const [shouldFetchUpcoming, setShouldFetchUpcoming] = useState(false)
   const [shouldFetchTopRated, setShouldFetchTopRated] = useState(false)
@@ -68,7 +68,7 @@ export const HomePage: React.FC = () => {
     [nowPlayingQuery, upcomingQuery, topRatedQuery, t]
   )
 
-  // Intersection Observer untuk lazy load semua sections
+  // Use Intersection Observer to lazy load carousel sections when they become visible
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {

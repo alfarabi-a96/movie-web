@@ -7,7 +7,7 @@ A modern web application for discovering and managing movies built with React, T
 - **Frontend Framework**: React 19 + TypeScript
 - **Build Tool**: Vite
 - **Styling**: CSS3
-- **State Management**: 
+- **State Management**:
   - React Context API (Auth, Theme, Favorites)
   - TanStack React Query (Server State)
 - **Authentication**: Firebase Auth
@@ -21,6 +21,7 @@ A modern web application for discovering and managing movies built with React, T
 ## Installation
 
 ### Prerequisites
+
 - Node.js 18 or higher
 - npm or yarn
 - NVM (Node Version Manager) - **recommended** for managing Node.js versions
@@ -40,17 +41,20 @@ If you need to install NVM, visit: https://github.com/nvm-sh/nvm#installing-and-
 ### Steps
 
 1. **Clone the repository**
+
    ```bash
    git clone <repository-url>
    cd movie-web
    ```
 
 2. **Use correct Node version (if using NVM)**
+
    ```bash
    nvm use
    ```
 
 3. **Install dependencies**
+
    ```bash
    npm install
    ```
@@ -70,66 +74,87 @@ If you need to install NVM, visit: https://github.com/nvm-sh/nvm#installing-and-
 ## Running the Project
 
 ### Development Mode
+
 ```bash
 npm run dev
 ```
+
 The application will run at `http://localhost:5173`
 
 ### Build for Production
+
 ```bash
 npm run build
 ```
 
 ### Preview Production Build
+
 ```bash
 npm run preview
 ```
 
 ### Lint Code
+
 ```bash
 npm run lint
 ```
 
 ### Format Code
+
 ```bash
 npm run format
 ```
 
+### Testing
+
+```bash
+npm run test
+```
+
+Run tests using Jest. The project uses Jest for unit and integration testing.
+
 ## Architecture Overview
 
 ### Authentication Flow
+
 - User authentication via Firebase (email/password and Google OAuth)
 - Protected routes using `ProtectedRoute` component
 - User state managed in `AuthContext`
 - Session persistence with Firebase
 
 ### State Management Strategy
+
 - **Local/UI State**: React Context (Auth, Theme, Favorites)
 - **Server State**: React Query (Movie data, caching, synchronization)
 - **Persistent State**: Firestore (User favorites, preferences)
 
 ### Component Architecture
+
 - **Page Components**: Full-page layouts in `pages/` folder
 - **Reusable Components**: Shared UI components in `components/` folder
 - **Custom Hooks**: Business logic in `hooks/` and `queries/` folders
 - **Providers**: Context providers for global state in `context/` folder
 
 ### API Integration
+
 - **TMDB API**: Movies data (popular, upcoming, top-rated, search)
 - **Firebase**: User authentication and Firestore database
 - **Fetch API**: Native JavaScript for HTTP requests
 - **React Query**: Server state management and caching
 
 ### Internationalization (i18n)
+
 - Support for English and Indonesian languages
 - Language preference stored in browser
 - Translation files in `locales/` folder
 - Easy to add more languages
 
 ### Styling Approach
+
 - **Component Styles**: CSS modules for scoped styling
 - **Global Styles**: Global CSS in `styles/globals.css`
 - **Responsive Design**: Mobile-first CSS approach
+- **Icons**: SVG sprite for optimized icon management and performance
 
 ## Features
 

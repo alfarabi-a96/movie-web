@@ -2,7 +2,7 @@ import React, { useMemo, useState } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { useAuth } from '../../hooks/useAuth'
-import { useForm } from '../../hooks/useInput'
+import { useInput } from '../../hooks/useInput'
 import { Input } from '../../components/Input'
 import { Button } from '../../components/Button'
 import {
@@ -22,7 +22,7 @@ export const LoginPage: React.FC = () => {
   const [error, setError] = useState('')
   const [isLoading, setIsLoading] = useState(false)
 
-  const { values, errors, bind, validate, reset } = useForm({
+  const { values, errors, bind, validate, reset } = useInput({
     email: '',
     password: ''
   })
@@ -72,27 +72,6 @@ export const LoginPage: React.FC = () => {
     }
   }
 
-  // const handleSocialLogin = async (
-  //   provider: 'facebook' | 'google' | 'apple'
-  // ) => {
-  //   setError('');
-  //   setIsLoading(true);
-  //   try {
-  //     const mockData = {
-  //       id: `${provider}-${Date.now()}`,
-  //       name: `Demo User (${provider})`,
-  //       email: `demo-${provider}@Alpha Movie.local`,
-  //       avatar: undefined,
-  //     };
-  //     await loginWithSocial(provider, mockData);
-  //     navigate('/');
-  //   } catch (err) {
-  //     setError(err instanceof Error ? err.message : t('errors.serverError'));
-  //   } finally {
-  //     setIsLoading(false);
-  //   }
-  // };
-
   return (
     <div className='auth-page'>
       <div className='auth-container'>
@@ -128,6 +107,7 @@ export const LoginPage: React.FC = () => {
             />
 
             <Button
+              id='login-button'
               type='submit'
               variant='primary'
               size='sm'
@@ -144,6 +124,7 @@ export const LoginPage: React.FC = () => {
 
           <div className='auth-social'>
             <Button
+              id='social-button'
               type='button'
               variant='secondary'
               fullWidth

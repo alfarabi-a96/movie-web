@@ -30,7 +30,7 @@ export const SearchPage: React.FC = () => {
       (page: PaginatedMoviesResponse) => page.results
     ) || []
 
-  // Lazy loading dengan IntersectionObserver
+  // Trigger infinite scroll when user scrolls near the bottom
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {

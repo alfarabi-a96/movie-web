@@ -58,8 +58,12 @@
   transform: scale(1.1);
 }
 
+.movie-card__favorite-btn:not(.active) {
+  color: white;
+}
+
 .movie-card__favorite-btn.active {
-  color: var(--color-primary);
+  color: #dc143c;
   background-color: rgba(255, 255, 255, 0.2);
 }
 

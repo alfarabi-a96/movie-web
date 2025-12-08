@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next'
 import { useFavorites } from '../../hooks/useFavorites'
 import { MovieCard } from '../../components/MovieCard'
 import './index.css'
+import Icon from '../../components/Icon'
 
 export const FavoritesPage: React.FC = () => {
   const { t } = useTranslation()
@@ -26,7 +27,7 @@ export const FavoritesPage: React.FC = () => {
           </div>
         ) : (
           <div className='favorites-empty'>
-            <p className='favorites-empty__icon'>❤️</p>
+            <Icon name='love' color='red' size='60' />
             <h2 className='favorites-empty__title'>{t('favorites.empty')}</h2>
           </div>
         )}

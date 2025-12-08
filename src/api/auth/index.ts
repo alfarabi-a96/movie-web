@@ -11,7 +11,6 @@ import { auth } from '../../clients/firestoreClient'
 import { errorMap } from '../../utils/helper'
 import type { UserCredentials } from '../../types'
 
-// Login user
 export const loginUser = async (email: string, password: string) => {
   try {
     const userCredential = await signInWithEmailAndPassword(
@@ -25,7 +24,6 @@ export const loginUser = async (email: string, password: string) => {
   }
 }
 
-// Login user with Google
 export const loginUserByGoogle = async () => {
   const provider = new GoogleAuthProvider()
   try {
@@ -36,7 +34,6 @@ export const loginUserByGoogle = async () => {
   }
 }
 
-// Sign up user
 export const signUpUser = async (credential: UserCredentials) => {
   const { email, password } = credential
   try {
@@ -62,7 +59,6 @@ export const updateUser = async (user: User, name: string) => {
   }
 }
 
-// Logout user
 export const logoutUser = async () => {
   await signOut(auth)
 }

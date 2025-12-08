@@ -12,7 +12,6 @@ export const apiFetch = async (
   options = {} as optionsType
 ) => {
   const query = new URLSearchParams(options.params)
-  console.log('aaaa', query.toString())
   const res = await fetch(`${API_BASE_URL}${endpoint}?${query}`, {
     ...options,
     headers: {

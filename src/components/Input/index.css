@@ -44,6 +44,14 @@
 }
 
 .input--error {
+  width: 100%;
+  padding: 1rem;
+  font-size: 1rem;
+  font-family: var(--font-family-sans);
+  border-radius: var(--border-radius-md);
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  transition: all 150ms ease-in-out;
   border-color: var(--color-danger);
 }
 
