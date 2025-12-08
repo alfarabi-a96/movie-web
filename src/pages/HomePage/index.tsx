@@ -4,7 +4,7 @@ import { MovieCarousel } from '../../components/MovieCarousel'
 import { SearchBar } from '../../components/SearchBar'
 import { Loading } from '../../components/Loading'
 import { Error } from '../../components/Error'
-import type { Locale } from '../../types'
+import type { Locale, PaginatedMoviesResponse } from '../../types'
 import {
   usePopularMoviesInfiniteQuery,
   useNowPlayingMoviesInfiniteQuery,
@@ -95,7 +95,9 @@ export const HomePage: React.FC = () => {
 
   // Flatten popular movies
   const allPopularMovies =
-    popularQuery.data?.pages.flatMap((page: any) => page.results) ?? []
+    popularQuery.data?.pages.flatMap(
+      (page: PaginatedMoviesResponse) => page.results
+    ) ?? []
 
   return (
     <div className='home-page'>
@@ -133,7 +135,9 @@ export const HomePage: React.FC = () => {
         {/* Lazy loaded sections */}
         {lazySections.map((section, index) => {
           const allMovies =
-            section.query.data?.pages.flatMap((page: any) => page.results) ?? []
+            section.query.data?.pages.flatMap(
+              (page: PaginatedMoviesResponse) => page.results
+            ) ?? []
           const shouldShow =
             (index === 0 && shouldFetchNowPlaying) ||
             (index === 1 && shouldFetchUpcoming) ||

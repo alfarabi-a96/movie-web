@@ -41,7 +41,10 @@ const ActorAvatar: React.FC<{ actor: CastMember }> = ({ actor }) => {
   )
 }
 
-const CastSection: React.FC<{ cast: CastMember[]; t: any }> = ({ cast, t }) => {
+const CastSection: React.FC<{
+  cast: CastMember[]
+  t: ReturnType<typeof useTranslation>['t']
+}> = ({ cast, t }) => {
   if (!cast || cast.length === 0) return null
 
   return (
@@ -64,7 +67,10 @@ const CastSection: React.FC<{ cast: CastMember[]; t: any }> = ({ cast, t }) => {
   )
 }
 
-const CrewSection: React.FC<{ crew: CrewMember[]; t: any }> = ({ crew, t }) => {
+const CrewSection: React.FC<{
+  crew: CrewMember[]
+  t: ReturnType<typeof useTranslation>['t']
+}> = ({ crew, t }) => {
   const uniqueCrew = useMemo(() => getUniqueCrew(crew), [crew])
 
   if (uniqueCrew.length === 0) return null
@@ -84,7 +90,10 @@ const CrewSection: React.FC<{ crew: CrewMember[]; t: any }> = ({ crew, t }) => {
   )
 }
 
-const DetailsGrid: React.FC<{ movie: Movie; t: any }> = ({ movie, t }) => {
+const DetailsGrid: React.FC<{
+  movie: Movie
+  t: ReturnType<typeof useTranslation>['t']
+}> = ({ movie, t }) => {
   const details = useMemo(
     () =>
       [
@@ -102,7 +111,9 @@ const DetailsGrid: React.FC<{ movie: Movie; t: any }> = ({ movie, t }) => {
         },
         {
           label: t('movies.releaseDate'),
-          value: new Date(movie.release_date).toLocaleDateString()
+          value: movie.release_date
+            ? new Date(movie.release_date).toLocaleDateString()
+            : 'N/A'
         }
       ].filter(Boolean) as Array<{ label: string; value: string }>,
     [movie, t]
@@ -134,12 +145,23 @@ export const MovieDetailsPage: React.FC = () => {
   } = useMoviewDetailsQuery(id as string, language)
 
   const releaseYear = useMemo(
-    () => (movieDetails ? getReleaseYear(movieDetails.release_date) : null),
+    () =>
+      movieDetails?.release_date
+        ? getReleaseYear(movieDetails.release_date)
+        : 'N/A',
     [movieDetails]
   )
 
   const genresList = useMemo(
     () => (movieDetails ? getGenresList(movieDetails.genres) : ''),
+    [movieDetails]
+  )
+
+  const ratings = useMemo(
+    () =>
+      movieDetails?.vote_average
+        ? `${movieDetails.vote_average.toFixed(1)}/10`
+        : 'N/A',
     [movieDetails]
   )
 
@@ -167,12 +189,16 @@ export const MovieDetailsPage: React.FC = () => {
   return (
     <div className='movie-details'>
       {/* Backdrop */}
+
       <div className='movie-details__backdrop'>
-        <img
-          src={`${IMAGE_BASE_URL}/w780${movieDetails.backdrop_path}`}
-          alt={movieDetails.original_title}
-          className='movie-details__backdrop-image'
-        />
+        {movieDetails.backdrop_path && (
+          <img
+            src={`${IMAGE_BASE_URL}/w780${movieDetails.backdrop_path}`}
+            alt={movieDetails.original_title}
+            className='movie-details__backdrop-image'
+          />
+        )}
+
         <div className='movie-details__backdrop-overlay'></div>
       </div>
 
@@ -181,10 +207,12 @@ export const MovieDetailsPage: React.FC = () => {
         <div className='movie-details__content'>
           {/* Poster */}
           <div className='movie-details__poster'>
-            <img
-              src={`${IMAGE_BASE_URL}/w185${movieDetails.poster_path}`}
-              alt={movieDetails.title}
-            />
+            {movieDetails.poster_path && (
+              <img
+                src={`${IMAGE_BASE_URL}/w185${movieDetails.poster_path}`}
+                alt={movieDetails.title}
+              />
+            )}
           </div>
 
           {/* Info */}
@@ -193,9 +221,7 @@ export const MovieDetailsPage: React.FC = () => {
               <h1 className='movie-details__title'>{movieDetails.title}</h1>
               <div className='movie-details__meta'>
                 <span className='movie-details__year'>{releaseYear}</span>
-                <span className='movie-details__rating'>
-                  ⭐ {movieDetails.vote_average.toFixed(1)}/10
-                </span>
+                <span className='movie-details__rating'>⭐ {ratings}</span>
                 {movieDetails.runtime && (
                   <span className='movie-details__runtime'>
                     ⏱ {movieDetails.runtime} {t('movies.minutes')}
@@ -208,7 +234,9 @@ export const MovieDetailsPage: React.FC = () => {
               <p className='movie-details__tagline'>"{movieDetails.tagline}"</p>
             )}
 
-            <div className='movie-details__genres'>{genresList}</div>
+            {genresList && (
+              <div className='movie-details__genres'>{genresList}</div>
+            )}
 
             {/* Buttons */}
             <div className='movie-details__actions'>

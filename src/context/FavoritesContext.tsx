@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useState, useEffect } from 'react'
 import type { ReactNode } from 'react'
-import type { Movie, FavoritesContextType } from '../types'
+import type { Movie, MovieListItem, FavoritesContextType } from '../types'
 
 const FavoritesContext = createContext<FavoritesContextType | undefined>(
   undefined
@@ -22,10 +22,10 @@ export const FavoritesProvider: React.FC<FavoritesProviderProps> = ({
     localStorage.setItem('favorites', JSON.stringify(favorites))
   }, [favorites])
 
-  const addFavorite = (movie: Movie) => {
+  const addFavorite = (movie: Movie | MovieListItem) => {
     setFavorites((prev) => {
       if (!prev.find((m) => m.id === movie.id)) {
-        return [...prev, movie]
+        return [...prev, movie as Movie]
       }
       return prev
     })

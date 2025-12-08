@@ -10,6 +10,24 @@ export const fetchMovieById = async (movieId: string, language: string) => {
   })
 }
 
+export const searchMovies = async (
+  language: string,
+  page: number,
+  region: string,
+  query: string
+) => {
+  console.log('qqqq', query)
+  return apiFetch(`/search/movie`, {
+    method: 'GET',
+    params: {
+      language,
+      page: page.toString(),
+      region,
+      query
+    }
+  })
+}
+
 export const fetchPopularMovies = async (
   language: string,
   page: number,

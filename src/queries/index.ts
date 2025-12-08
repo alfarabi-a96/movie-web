@@ -4,20 +4,27 @@ import {
   fetchNowPlayingMovies,
   fetchUpcomingMovies,
   fetchTopRatedMovies,
-  fetchMovieById
+  fetchMovieById,
+  searchMovies
 } from '../api/tmdb'
 import { LOCALES } from '../constants'
-import type { Locale } from '../types'
+import type { Locale, PaginatedMoviesResponse } from '../types'
 
 // Generic hook for movie infinite queries
 const useMoviesInfiniteQuery = (
   queryKey: string,
-  fetchFn: (language: string, page: number, region: string) => Promise<any>,
+  fetchFn: (
+    language: string,
+    page: number,
+    region: string,
+    query: string
+  ) => Promise<PaginatedMoviesResponse>,
   language: Locale,
-  enabled: boolean = true
+  enabled: boolean = true,
+  query = ''
 ) => {
   const initialPage = 1
-  const fullQueryKey = [queryKey, language]
+  const fullQueryKey = [queryKey, language, query]
   const getNextPageParam = (lastPage: {
     page: number
     total_pages: number
@@ -29,7 +36,8 @@ const useMoviesInfiniteQuery = (
     fetchFn(
       LOCALES.language[language],
       pageParam as number,
-      LOCALES.region[language]
+      LOCALES.region[language],
+      query
     )
 
   return useAppInfiniteQuery(
@@ -88,5 +96,18 @@ export const useTopRatedMoviesInfiniteQuery = (
     fetchTopRatedMovies,
     language,
     enabled
+  )
+}
+
+export const useSearchMoviesInfiniteQuery = (
+  query: string,
+  language: Locale
+) => {
+  return useMoviesInfiniteQuery(
+    `search-movies-infinite-${query}`,
+    searchMovies,
+    language,
+    true,
+    query
   )
 }

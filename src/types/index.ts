@@ -94,14 +94,16 @@ export interface Movie {
   credits?: Credits
 }
 
+export type MovieListItem = Omit<
+  Movie,
+  | 'credits'
+  | 'production_companies'
+  | 'production_countries'
+  | 'spoken_languages'
+>
+
 export interface PaginatedMoviesResponse {
-  results: Omit<
-    Movie,
-    | 'credits'
-    | 'production_companies'
-    | 'production_countries'
-    | 'spoken_languages'
-  >[]
+  results: MovieListItem[]
   page: number
   total_pages: number
   total_results: number
@@ -183,7 +185,7 @@ export interface ThemeContextType {
 
 export interface FavoritesContextType {
   favorites: Movie[]
-  addFavorite: (movie: Movie) => void
+  addFavorite: (movie: Movie | MovieListItem) => void
   removeFavorite: (movieId: number) => void
   isFavorite: (movieId: number) => boolean
 }

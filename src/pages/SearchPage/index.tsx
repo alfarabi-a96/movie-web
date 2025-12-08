@@ -1,46 +1,59 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
-// import { movieService } from '../services/movieService'
-import { MovieCard } from '../components/MovieCard'
-import { Loading } from '../components/Loading'
-import { Error } from '../components/Error'
-import { Input } from '../components/Input'
-import type { Movie } from '../types'
-import '../styles/pages/Search.css'
+import { MovieCard } from '../../components/MovieCard'
+import { Loading } from '../../components/Loading'
+import { Error } from '../../components/Error'
+import { Input } from '../../components/Input'
+import { useSearchMoviesInfiniteQuery } from '../../queries'
+import type { Locale, PaginatedMoviesResponse } from '../../types'
+import './index.css'
 
 export const SearchPage: React.FC = () => {
   const { t } = useTranslation()
+  const language = localStorage.getItem('language') ?? 'en'
   const [searchParams, setSearchParams] = useSearchParams()
   const query = searchParams.get('q') || ''
-  const [movies, setMovies] = useState<Movie[]>([])
-  const [isLoading, setIsLoading] = useState(false)
-  const [error, setError] = useState<string | null>(null)
   const [searchInput, setSearchInput] = useState(query)
+  const observerTarget = useRef<HTMLDivElement>(null)
 
+  const {
+    data: searchQueryData,
+    isLoading,
+    isError,
+    hasNextPage,
+    fetchNextPage,
+    isFetchingNextPage
+  } = useSearchMoviesInfiniteQuery(query, language as Locale)
+
+  const allSearchMovies =
+    searchQueryData?.pages.flatMap(
+      (page: PaginatedMoviesResponse) => page.results
+    ) || []
+
+  // Lazy loading dengan IntersectionObserver
   useEffect(() => {
-    if (!query) {
-      setMovies([])
-      return
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting && hasNextPage && !isFetchingNextPage) {
+          fetchNextPage()
+        }
+      },
+      {
+        threshold: 0.1
+      }
+    )
+
+    if (observerTarget.current) {
+      observer.observe(observerTarget.current)
     }
 
-    const search = async () => {
-      setIsLoading(true)
-      setError(null)
-      try {
-        const results = await movieService.searchMovies(query)
-        setMovies(results)
-      } catch (err) {
-        const error = err as Error
-        setError(error.message || t('errors.loadingError'))
-      } finally {
-        setIsLoading(false)
+    return () => {
+      if (observerTarget.current) {
+        observer.unobserve(observerTarget.current)
       }
     }
-
-    search()
-  }, [query, t])
-
+  }, [hasNextPage, isFetchingNextPage, fetchNextPage])
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault()
     if (searchInput.trim()) {
@@ -75,17 +88,25 @@ export const SearchPage: React.FC = () => {
 
           {isLoading && <Loading message={t('common.loading')} />}
 
-          {error && <Error message={error} />}
+          {isError && <Error message={t('errors.loadingError')} />}
 
-          {!isLoading && !error && movies.length > 0 && (
-            <div className='movie-grid'>
-              {movies.map((movie) => (
-                <MovieCard key={movie.id} movie={movie} />
-              ))}
-            </div>
+          {!isLoading && !isError && allSearchMovies.length > 0 && (
+            <>
+              <div className='movie-grid'>
+                {allSearchMovies.map((movie) => (
+                  <MovieCard key={movie.id} movie={movie} />
+                ))}
+              </div>
+              {/* Lazy load observer target */}
+              <div ref={observerTarget} className='search-results__loader'>
+                {isFetchingNextPage && (
+                  <Loading message={t('common.loading')} />
+                )}
+              </div>
+            </>
           )}
 
-          {!isLoading && !error && query && movies.length === 0 && (
+          {!isLoading && !isError && query && allSearchMovies.length === 0 && (
             <div className='search-results__empty'>
               <p className='search-results__empty-icon'>🔍</p>
               <h3 className='search-results__empty-title'>

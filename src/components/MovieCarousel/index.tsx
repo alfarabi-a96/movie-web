@@ -1,10 +1,10 @@
 import React, { useRef, useEffect } from 'react'
-import type { Movie } from '../../types'
+import type { MovieListItem } from '../../types'
 import { MovieCard } from '../MovieCard'
 import './index.css'
 
 interface MovieCarouselProps {
-  movies: Movie[]
+  movies: MovieListItem[]
   title: string
   onLoadMore?: () => void
   isLoading?: boolean

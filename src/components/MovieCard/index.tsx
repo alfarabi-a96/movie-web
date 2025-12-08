@@ -1,13 +1,13 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
-import type { Movie } from '../../types'
+import type { Movie, MovieListItem } from '../../types'
 import { useFavorites } from '../../context/FavoritesContext'
 import { IMAGE_BASE_URL } from '../../clients/endpoint'
 import './index.css'
 
 interface MovieCardProps {
-  movie: Movie
+  movie: Movie | MovieListItem
 }
 
 export const MovieCard: React.FC<MovieCardProps> = ({ movie }) => {
@@ -26,12 +26,14 @@ export const MovieCard: React.FC<MovieCardProps> = ({ movie }) => {
   return (
     <Link to={`/movie/${movie.id}`} className='movie-card'>
       <div className='movie-card__poster'>
-        <img
-          src={`${IMAGE_BASE_URL}/w185${movie.poster_path}`}
-          alt={movie.title}
-          className='movie-card__image'
-          loading='lazy'
-        />
+        {movie.poster_path && (
+          <img
+            src={`${IMAGE_BASE_URL}/w185${movie.poster_path}`}
+            alt={movie.title}
+            className='movie-card__image'
+            loading='lazy'
+          />
+        )}
         <button
           className={`movie-card__favorite-btn ${favorite ? 'active' : ''}`}
           onClick={handleFavoriteToggle}
@@ -50,16 +52,20 @@ export const MovieCard: React.FC<MovieCardProps> = ({ movie }) => {
         </button>
         <div className='movie-card__rating'>
           <span className='movie-card__rating-value'>
-            {movie.vote_average.toFixed(1)}
+            {movie.vote_average ? movie.vote_average.toFixed(1) : 'N/A'}
           </span>
-          <span className='movie-card__rating-max'>/10</span>
+          {movie.vote_average !== 0 && (
+            <span className='movie-card__rating-max'>/10</span>
+          )}
         </div>
       </div>
       <div className='movie-card__content'>
         <h3 className='movie-card__title'>{movie.title}</h3>
-        <p className='movie-card__year'>
-          {new Date(movie.release_date).getFullYear()}
-        </p>
+        {movie.release_date && (
+          <p className='movie-card__year'>
+            {new Date(movie.release_date).getFullYear()}
+          </p>
+        )}
       </div>
     </Link>
   )
