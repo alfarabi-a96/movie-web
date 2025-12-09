@@ -16,6 +16,7 @@ A modern web application for discovering and managing movies built with React, T
 - **Internationalization**: i18next
 - **Routing**: React Router v7
 - **Code Quality**: ESLint, Prettier
+- **Testing**: Jest + React Testing Library
 - **HTTP Client**: Native Fetch API
 
 ## Installation
