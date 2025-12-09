@@ -27,20 +27,15 @@ export const FavoritesProvider: React.FC<FavoritesProviderProps> = ({
     localStorage.setItem(FAVORITES_KEY, JSON.stringify(favorites))
   }, [favorites])
 
-  // Sync with other tabs and handle logout
+  // handle logout
   useEffect(() => {
-    const handleStorageChange = (e: StorageEvent) => {
-      if (e.key === FAVORITES_KEY) {
-        setFavorites(e.newValue ? JSON.parse(e.newValue) : [])
-      }
+    const handleLogout = () => {
+      setFavorites([])
     }
 
-    window.addEventListener('storage', handleStorageChange)
-    window.addEventListener('userLogout', () => setFavorites([]))
-
+    window.addEventListener('userLogout', handleLogout)
     return () => {
-      window.removeEventListener('storage', handleStorageChange)
-      window.removeEventListener('userLogout', () => setFavorites([]))
+      window.removeEventListener('userLogout', handleLogout)
     }
   }, [])
 

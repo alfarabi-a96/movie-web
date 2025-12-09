@@ -70,8 +70,8 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
   const logout = () => {
     setUser(null)
-    localStorage.clear()
-    // Dispatch custom event to notify other providers about logout
+    localStorage.removeItem('favorites')
+    localStorage.removeItem('currentUser')
     window.dispatchEvent(new CustomEvent('userLogout'))
   }
 
