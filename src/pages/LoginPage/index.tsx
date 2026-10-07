@@ -22,7 +22,7 @@ export const LoginPage: React.FC = () => {
   const [error, setError] = useState('')
   const [isLoading, setIsLoading] = useState(false)
 
-  const { values, errors, bind, validate, reset } = useInput({
+  const { values, errors, bind, validate, reset, setFieldValue } = useInput({
     email: '',
     password: ''
   })
@@ -70,6 +70,12 @@ export const LoginPage: React.FC = () => {
     } finally {
       setIsLoading(false)
     }
+  }
+
+  const handleUseDemoAccount = () => {
+    setFieldValue('email', 'testuser@mailinator.com')
+    setFieldValue('password', 'test123')
+    setError('')
   }
 
   return (
@@ -136,7 +142,6 @@ export const LoginPage: React.FC = () => {
               G {t('auth.googleLogin')}
             </Button>
           </div>
-
           <div className='auth-footer'>
             <p>
               {t('auth.dontHaveAccount')}{' '}
@@ -144,6 +149,21 @@ export const LoginPage: React.FC = () => {
                 {t('common.register')}
               </Link>
             </p>
+          </div>
+           <div className='auth-demo-box'>
+            <p>{t('auth.demoPrompt')}</p>
+            <Button
+              id='demo-account-button'
+              type='button'
+              variant='secondary'
+              size='sm'
+              fullWidth
+              onClick={handleUseDemoAccount}
+              className='auth-demo-btn'
+            >
+              {t('auth.useDemoAccount')}
+            </Button>
+            <small>{t('auth.demoAutoFill')}</small>
           </div>
         </div>
       </div>
